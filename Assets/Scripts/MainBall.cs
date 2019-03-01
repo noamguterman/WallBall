@@ -16,6 +16,7 @@ public class MainBall : MonoBehaviour
     {
         if (IsTouch())
         {
+            _rig.velocity = Vector2.zero;
             _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
         }
     }

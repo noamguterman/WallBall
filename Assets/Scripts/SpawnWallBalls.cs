@@ -9,6 +9,7 @@ public class SpawnWallBalls : MonoBehaviour
     public float Delay;
     public GameObject Prefab;
     public float SpeedBullet = 1f;
+    public float Size = 1f;
     IEnumerator Start()
     {
         while (true)
@@ -21,6 +22,7 @@ public class SpawnWallBalls : MonoBehaviour
     private void Spawn()
     {
         var g = Instantiate(Prefab, transform.position, Quaternion.identity);
+        g.transform.localScale = Vector3.one * Size;
         g.transform.DOMoveX(g.transform.position.x + Direction, SpeedBullet);
         Destroy(g, 10f);
     }
