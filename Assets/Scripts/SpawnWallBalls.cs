@@ -7,15 +7,23 @@ public class SpawnWallBalls : MonoBehaviour
 {
     public float Direction;
     public float Delay;
-    public GameObject Prefab;
+    [SerializeField] private GameObject Prefab;
     public float SpeedBullet = 1f;
     public float Size = 1f;
+    private SpriteRenderer _renderer;
+    
     IEnumerator Start()
     {
+        _renderer = GetComponent<SpriteRenderer>();
         while (true)
         {
-            yield return new WaitForSeconds(Delay);
+            _renderer.DOKill(true);
+            _renderer.DOColor(Color.red, Delay / 2);
+            yield return new WaitForSeconds(Delay / 2 + Random.Range(0f, 0.2f));
+            _renderer.DOKill(true);
+            _renderer.DOColor(Color.white, Delay / 2);
             Spawn();
+            yield return new WaitForSeconds(Delay / 2 + Random.Range(0f, 0.2f));
         }
     }
 

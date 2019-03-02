@@ -96,3 +96,4 @@ MonoBehaviour:
   Delay: 2
   Prefab: {fileID: 3860725396261650270, guid: 7aad82e35c55d304490e4f9c768df5d0, type: 3}
   SpeedBullet: 1
+  Size: 1
