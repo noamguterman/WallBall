@@ -29,7 +29,7 @@ public class SpawnWallBalls : MonoBehaviour
 
     private void Spawn()
     {
-        var g = Instantiate(Prefab, transform.position, Quaternion.identity);
+        var g = Instantiate(Prefab, transform.position, Quaternion.identity, transform);
         g.transform.localScale = Vector3.one * Size;
         g.transform.DOMoveX(g.transform.position.x + Direction, SpeedBullet);
         Destroy(g, 10f);

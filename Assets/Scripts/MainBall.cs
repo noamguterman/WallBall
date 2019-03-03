@@ -9,10 +9,15 @@ public class MainBall : MonoBehaviour
     private Rigidbody2D _rig;
     public float PowerForMoveUp = 1f;
     public Transform Img;
-    
+    public GenerateLevel GenerateLevel;
+
+    private float startGravity;
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
+        startGravity = _rig.gravityScale;
+        _rig.gravityScale = 0;
+        Img.DOScale(new Vector3(0.7f, 1.5f, 1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
     }
 
     void Update()
@@ -22,6 +27,7 @@ public class MainBall : MonoBehaviour
         
         if (IsTouch())
         {
+            _rig.gravityScale = startGravity;
             _rig.velocity = Vector2.zero;
             _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
             Animation();
@@ -38,6 +44,9 @@ public class MainBall : MonoBehaviour
         transform.DOKill(true);
         IsInvisable = true;
         _rig.velocity = Vector3.zero;
+        float startMove = transform.position.y;
+        //GenerateLevel.DestroyWallsInRange( startMove,startMove - Distance, true);
+
         transform.DOMoveY(transform.position.y - Distance, 1f).OnComplete(() =>
         {
             IsInvisable = false;
@@ -64,15 +73,21 @@ public class MainBall : MonoBehaviour
 
     private bool IsTouch()
     {
-        return Input.GetMouseButtonUp(0)
+        return Input.GetMouseButtonDown(0)
 #if UNITY_EDITOR
-               || Input.GetKeyUp(KeyCode.Space)
+               || Input.GetKeyDown(KeyCode.Space)
 #endif
             ;
+    }
+
+    public void Finish()
+    {
+        _rig.gravityScale = 0;
     }
 
     private void OnDisable()
     {
         Img.DOKill(false);
+        transform.DOKill();
     }
 }

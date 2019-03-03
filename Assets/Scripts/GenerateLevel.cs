@@ -11,16 +11,19 @@ public class GenerateLevel : MonoBehaviour
     public SpawnWallBalls PrefabLeftWall;
     public SpawnWallBalls PrefabRightWall;
     public SpeedUp SpeedUpPrefab;
-    
+
     public GameObject StartLeftWall;
     public GameObject StartRightWall;
     public GameObject StartBall;
 
     public Chunck Chunck1;
     public Chunck Chunck2;
+    public Chunck Chunck3;
+
+    public LevelSettings LevelSettings; 
 
     private List<GameObject> _allRandomWalls = new List<GameObject>();
-    
+    private List<GameObject> chunks = new List<GameObject>();
     public void Generate()
     {
         float time = Storage.AmountPlayed;
@@ -29,15 +32,34 @@ public class GenerateLevel : MonoBehaviour
         var ballSize = AllSettings.SizeOfSideBalls.Evaluate(time);
         var speed = AllSettings.BallObstacleSpeed.Evaluate(time);
         GenerateLevelArgs(amountOfWall, ballHigh, ballSize, speed);
-        GeneratePowerUps(StartLeftWall.transform.position, 
-            StartBall.transform.position + Vector3.up * (ballHigh * 10), 2);
-        GenerateChucks(Chunck1, StartBall.transform.position, StartBall.transform.position + Vector3.up * (ballHigh * 5),
-            ballSize, speed);
+
+        var level = LevelSettings.GetLevel(Storage.AmountPlayed);
+        var startPos = StartBall.transform.position;
+        var endPos = StartBall.transform.position + Vector3.up * (ballHigh);
         
-        GenerateChucks(Chunck2, StartBall.transform.position + StartBall.transform.position + Vector3.up * (ballHigh * 5), 
-            StartBall.transform.position + Vector3.up * (ballHigh * 10) - Vector3.up * 10f,
-            ballSize, speed);
+        GeneratePowerUps(StartLeftWall.transform.position,
+            StartBall.transform.position + Vector3.up * (ballHigh), level.PowerUpAmount);
+
+
+        if (level.AmountChunk1)
+        {
+            GenerateChucks(Chunck1, startPos, endPos / 3,
+                ballSize, speed);
+        }
+
+        if (level.AmountChunk2)
+        {
+            GenerateChucks(Chunck2, startPos + endPos / 3, endPos * 2 / 3,
+                ballSize, speed);
+        }
+
+        if (level.AmountChunk3)
+        {
+            GenerateChucks(Chunck3, startPos + endPos * 2 / 3, endPos,
+                ballSize, speed);
+        }
     }
+
 
     private void GeneratePowerUps(Vector3 startPos, Vector3 maxPos, int amount)
     {
@@ -53,16 +75,11 @@ public class GenerateLevel : MonoBehaviour
         var randomPos = Random.Range(start.y, end.y);
 
         var c =Instantiate(chunck, new Vector3(start.x, randomPos, start.z), Quaternion.identity);
-        
+        chunks.Add(c.gameObject);
         var high = c.High.position.y;
         var low = c.Low.position.y;
-        
-        var list = _allRandomWalls.FindAll((o => { return o.transform.position.y < high && o.transform.position.y > low; }));
-        foreach (var o in list)
-        {
-            _allRandomWalls.Remove(o);
-            Destroy(o.gameObject);
-        }
+
+        DestroyWallsInRange(high, low, false);
         
         var walls = c.GetComponentsInChildren<SpawnWallBalls>();
         foreach (var wall in walls)
@@ -72,21 +89,50 @@ public class GenerateLevel : MonoBehaviour
         }
     }
 
+    public void DestroyWallsInRange(float high, float low, bool withChunks)
+    {
+        var list = _allRandomWalls.FindAll((o => { return o.transform.position.y < high && o.transform.position.y > low; }));
+        if (withChunks)
+        {
+            foreach (var chunk in chunks)
+            {
+                var l = chunk.GetComponentsInChildren<SpawnWallBalls>();
+                for (int i = 0; i < l.Length; i++)
+                {
+                    list.Add(l[i].gameObject);
+                }
+            }
+        }
+
+        foreach (var o in list)
+        {
+            _allRandomWalls.Remove(o);
+            Destroy(o.gameObject);
+        }
+    }
+
     public Vector3 GetStartPos()
     {
         float time = Storage.AmountPlayed;
         var ballHigh = AllSettings.StartPosition.Evaluate(time);
-        return StartBall.transform.position + Vector3.up * (ballHigh * 10);
+        return StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
+    }
+
+    public Vector3 GetEndPos()
+    {
+        return StartBall.transform.position;
     }
 
     private void GenerateLevelArgs(int amountOfWalls, float ballHigh, float sizeOfBall, float speedOfBall)
     {
-        MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh * 10);
+        float offset = ballHigh / (float) amountOfWalls;
+
+        MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
         
         for (int i = 0; i < amountOfWalls; i++)
         {
-            InitLeftWall(StartLeftWall.transform.position.y + (i * 10), sizeOfBall, speedOfBall);
-            InitRightWall(StartRightWall.transform.position.y + (i * 10), sizeOfBall, speedOfBall);
+            InitLeftWall(StartLeftWall.transform.position.y + (i * offset), sizeOfBall, speedOfBall);
+            InitRightWall(StartRightWall.transform.position.y + (i * offset), sizeOfBall, speedOfBall);
         }
     }
 
