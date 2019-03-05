@@ -15,7 +15,7 @@ public class SpawnWallBalls : MonoBehaviour
     IEnumerator Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
-        while (true)
+        //while (true)
         {
             _renderer.DOKill(true);
             _renderer.DOColor(Color.red, Delay / 2);
@@ -31,8 +31,10 @@ public class SpawnWallBalls : MonoBehaviour
     {
         var g = Instantiate(Prefab, transform.position, Quaternion.identity, transform);
         g.transform.localScale = Vector3.one * Size;
-        g.transform.DOMoveX(g.transform.position.x + Direction, SpeedBullet);
-        Destroy(g, 10f);
+        var rig = g.GetComponent<Rigidbody2D>();
+        rig.AddForce(Vector2.right * Direction * SpeedBullet);
+        //g.transform.DOMoveX(g.transform.position.x + Direction, SpeedBullet);
+        //Destroy(g, 10f);
     }
 
 }
