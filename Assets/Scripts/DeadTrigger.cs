@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[ExecuteInEditMode]
 public class DeadTrigger : MonoBehaviour
 {
     private Vector3 _startScale;

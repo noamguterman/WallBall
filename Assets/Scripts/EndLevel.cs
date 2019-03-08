@@ -19,7 +19,7 @@ public class EndLevel : MonoBehaviour
     {
         ball.Finish();
         Storage.Increase();
-        yield return null;
+        yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene(0);
     }
 }

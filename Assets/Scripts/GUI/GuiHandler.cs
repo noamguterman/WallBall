@@ -15,10 +15,20 @@ public class GuiHandler : MonoBehaviour
 
     public GenerateLevel GenerateLevel;
     public Storage Storage;
+
+    public Transform Buttom;
     
     private void Start()
     {
         UpdateCurrentLevel(Storage.AmountPlayed);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Buttom.gameObject.SetActive(false);
+        }
     }
 
     public void UpdateDistance(float distance)

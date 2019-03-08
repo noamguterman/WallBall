@@ -10,7 +10,7 @@ public class MainBall : MonoBehaviour
     public float PowerForMoveUp = 1f;
     public Transform Img;
     public GenerateLevel GenerateLevel;
-
+    private TrailRenderer _trail;
     private float startGravity;
     private void Awake()
     {
@@ -18,6 +18,14 @@ public class MainBall : MonoBehaviour
         startGravity = _rig.gravityScale;
         _rig.gravityScale = 0;
         Img.DOScale(new Vector3(0.7f, 1.5f, 1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
+        _trail = GetComponentInChildren<TrailRenderer>();
+    }
+
+    private IEnumerator Start()
+    {
+        _trail.gameObject.SetActive(false);
+        yield return null;
+        _trail.gameObject.SetActive(true);
     }
 
     void Update()
@@ -82,7 +90,9 @@ public class MainBall : MonoBehaviour
 
     public void Finish()
     {
+        _trail.gameObject.SetActive(false);
         _rig.gravityScale = 0;
+        _rig.velocity = Vector3.zero;
     }
 
     private void OnDisable()

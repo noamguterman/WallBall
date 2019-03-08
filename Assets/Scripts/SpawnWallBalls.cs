@@ -11,6 +11,8 @@ public class SpawnWallBalls : MonoBehaviour
     public float SpeedBullet = 1f;
     public float Size = 1f;
     private SpriteRenderer _renderer;
+
+    public Transform Parent;
     
     IEnumerator Start()
     {
@@ -29,7 +31,7 @@ public class SpawnWallBalls : MonoBehaviour
 
     private void Spawn()
     {
-        var g = Instantiate(Prefab, transform.position, Quaternion.identity, transform);
+        var g = Instantiate(Prefab, transform.position, Quaternion.identity, Parent);
         g.transform.localScale = Vector3.one * Size;
         var rig = g.GetComponent<Rigidbody2D>();
         rig.AddForce(Vector2.right * Direction * SpeedBullet);

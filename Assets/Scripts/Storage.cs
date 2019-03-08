@@ -10,7 +10,7 @@ public class Storage : MonoBehaviour
     private void Awake()
     {
 #if UNITY_EDITOR
-        //return;
+        return;
 #endif
         AmountPlayed = PlayerPrefs.GetInt(Level);
     }
