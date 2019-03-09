@@ -17,7 +17,14 @@ public class GuiHandler : MonoBehaviour
     public Storage Storage;
 
     public Transform Buttom;
-    
+
+    public GameObject RateApp;
+
+    private void Awake()
+    {
+        Progress.fillAmount = 0f;
+    }
+
     private void Start()
     {
         UpdateCurrentLevel(Storage.AmountPlayed);
@@ -31,14 +38,27 @@ public class GuiHandler : MonoBehaviour
         }
     }
 
+    public void ShowRestart()
+    {
+        RateApp.SetActive(true);
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void UpdateDistance(float distance)
     {
         var start = GenerateLevel.GetStartPos();
         var end = GenerateLevel.GetEndPos();
 
         var totalDistance = Vector3.Distance(start, end);
-        
-        Progress.fillAmount = distance / totalDistance;
+        if (Progress.fillAmount < distance / totalDistance)
+        {
+            Progress.fillAmount = distance / totalDistance;
+        }
+
         DistanceText.text = distance + "";
     }
 

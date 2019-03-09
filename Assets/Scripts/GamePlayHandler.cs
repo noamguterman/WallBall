@@ -6,10 +6,16 @@ using UnityEngine.SceneManagement;
 public class GamePlayHandler : MonoBehaviour
 {
     public GenerateLevel GenerateLevel;
-
+    public GuiHandler GuiHandler;
+    
     private void Start()
     {
         GenerateLevel.Generate();
+    }
+
+    public void Hit()
+    {
+        GuiHandler.ShowRestart();
     }
 
     private void OnHit()

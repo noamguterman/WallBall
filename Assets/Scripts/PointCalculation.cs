@@ -14,6 +14,7 @@ public class PointCalculation : MonoBehaviour
     {
         _startPosition = GenerateLevel.GetStartPos();
         _lastPosition = GenerateLevel.GetStartPos();
+        GuiHandler.UpdateDistance(Vector3.Distance(_startPosition, _lastPosition));
     }
 
     void Update()
@@ -21,8 +22,8 @@ public class PointCalculation : MonoBehaviour
         if (_lastPosition.y > Ball.transform.position.y)
         {
             _lastPosition = Ball.transform.position;
+            GuiHandler.UpdateDistance(Vector3.Distance(_startPosition, _lastPosition));
         }
-        GuiHandler.UpdateDistance(Vector3.Distance(_startPosition, _lastPosition));
     }
 
 }

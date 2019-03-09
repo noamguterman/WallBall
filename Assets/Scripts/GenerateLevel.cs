@@ -58,6 +58,33 @@ public class GenerateLevel : MonoBehaviour
             GenerateChucks(Chunck3, startPos + endPos * 2 / 3, endPos,
                 ballSize, speed);
         }
+
+        RemoveDublicates();
+    }
+
+    private void RemoveDublicates()
+    {
+        for (int i = 0; i < _allRandomWalls.Count; i++)
+        {
+            var wall = _allRandomWalls[i];
+            var list = _allRandomWalls.FindAll(_ =>
+            {
+                if (_ != null)
+                {
+                    if (_ != wall)
+                    {
+                        var dif = Mathf.Abs(_.transform.position.y - wall.transform.position.y);
+                        return dif < 1f;
+                    }
+                }
+                return false;
+            });
+            
+            foreach (var o in list)
+            {
+                Destroy(o.gameObject);
+            }
+        }
     }
 
 
@@ -86,6 +113,7 @@ public class GenerateLevel : MonoBehaviour
         {
             wall.Size = size;
             wall.SpeedBullet = speed;
+            _allRandomWalls.Add(wall.gameObject);
         }
     }
 

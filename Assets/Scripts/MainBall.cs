@@ -12,6 +12,7 @@ public class MainBall : MonoBehaviour
     public GenerateLevel GenerateLevel;
     private TrailRenderer _trail;
     private float startGravity;
+    public GamePlayHandler GamePlayHandler;
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
@@ -28,8 +29,15 @@ public class MainBall : MonoBehaviour
         _trail.gameObject.SetActive(true);
     }
 
+    private bool _active = true;
+
     void Update()
     {
+        if (_active == false)
+            return;
+        
+        _trail.gameObject.SetActive(_rig.velocity.y < 0f);
+
         if (IsInvisable == true)
             return;
         
@@ -66,7 +74,13 @@ public class MainBall : MonoBehaviour
     public void TouchObstacle()
     {
         if (IsInvisable == false)
-            SceneManager.LoadScene(0);
+        {
+            _rig.gravityScale = 0;
+            _rig.velocity = Vector3.zero;
+            GamePlayHandler.Hit();
+            _active = false;
+
+        }
     }
 
     private void Animation()
@@ -93,10 +107,13 @@ public class MainBall : MonoBehaviour
         _trail.gameObject.SetActive(false);
         _rig.gravityScale = 0;
         _rig.velocity = Vector3.zero;
+        _active = false;
+        Img.gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
+        _active = false;
         Img.DOKill(false);
         transform.DOKill();
     }
