@@ -43,6 +43,7 @@ public class MainBall : MonoBehaviour
         
         if (IsTouch())
         {
+            _canLose = true;
             _rig.gravityScale = startGravity;
             _rig.velocity = Vector2.zero;
             _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
@@ -56,6 +57,8 @@ public class MainBall : MonoBehaviour
     {
         if (IsInvisable)
             return;
+
+        _canLose = false;
         
         transform.DOKill(true);
         IsInvisable = true;
@@ -68,11 +71,23 @@ public class MainBall : MonoBehaviour
             IsInvisable = false;
             _rig.velocity = Vector3.zero;
             transform.localScale = Vector3.one;
+            _canLose = false;
+            Invoke("InvisibleDisable", 2f);
         });
     }
 
+    private void InvisibleDisable()
+    {
+        _canLose = true;
+    }
+
+    private bool _canLose = true;
+
     public void TouchObstacle()
     {
+        if (_canLose == false)
+            return;
+        
         if (IsInvisable == false)
         {
             _rig.gravityScale = 0;
@@ -117,4 +132,16 @@ public class MainBall : MonoBehaviour
         Img.DOKill(false);
         transform.DOKill();
     }
+
+    public void Continue()
+    {
+        _active = true;
+        Img.DOKill(false);
+        Img.gameObject.SetActive(true);
+        _rig.gravityScale = 0;
+        _canLose = false;
+        Time.timeScale = 1;
+    }
+    
+    
 }

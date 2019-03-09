@@ -24,6 +24,7 @@ public class GenerateLevel : MonoBehaviour
 
     private List<GameObject> _allRandomWalls = new List<GameObject>();
     private List<GameObject> chunks = new List<GameObject>();
+    private List<SpeedUp> _speedUps = new List<SpeedUp>();
     public void Generate()
     {
         float time = Storage.AmountPlayed;
@@ -37,8 +38,7 @@ public class GenerateLevel : MonoBehaviour
         var startPos = StartBall.transform.position;
         var endPos = StartBall.transform.position + Vector3.up * (ballHigh);
         
-        GeneratePowerUps(StartLeftWall.transform.position,
-            StartBall.transform.position + Vector3.up * (ballHigh), level.PowerUpAmount);
+
 
 
         if (level.AmountChunk1)
@@ -58,8 +58,13 @@ public class GenerateLevel : MonoBehaviour
             GenerateChucks(Chunck3, startPos + endPos * 2 / 3, endPos,
                 ballSize, speed);
         }
-
+        
         RemoveDublicates();
+        
+        GeneratePowerUps(StartLeftWall.transform.position,
+            StartBall.transform.position + Vector3.up * (ballHigh), level.PowerUpAmount);
+        
+        OnSpeedUp_SaveZone();
     }
 
     private void RemoveDublicates()
@@ -87,14 +92,40 @@ public class GenerateLevel : MonoBehaviour
         }
     }
 
+    private void OnSpeedUp_SaveZone()
+    {
+        foreach (var speedUp in _speedUps)
+        {
+            var pos = speedUp.transform.position.y - speedUp.MoveDown;
+            foreach (var wall in _allRandomWalls)
+            {
+                if (wall != null)
+                {
+                    if (Mathf.Abs(wall.transform.position.y + pos) < 3f)
+                    {
+                        Destroy(wall);
+                    }
+                }
+            }
+        }
+    }
+
 
     private void GeneratePowerUps(Vector3 startPos, Vector3 maxPos, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            var y = Random.Range(startPos.y, maxPos.y);
-            var g = Instantiate(SpeedUpPrefab, new Vector3(startPos.x, y, startPos.z), Quaternion.identity);
+            var y = GetRadomPosWall();
+            var g = Instantiate(SpeedUpPrefab, new Vector3(startPos.x, y.y, startPos.z), Quaternion.identity);
+            _speedUps.Add(g);
         }
+    }
+
+    private Vector3 GetRadomPosWall()
+    {
+        _allRandomWalls.RemoveAll(_ => _ == null);
+        int r = Random.Range(0, _allRandomWalls.Count);
+        return _allRandomWalls[r].transform.position;
     }
 
     private void GenerateChucks(Chunck chunck, Vector3 start, Vector3 end, float size, float speed)

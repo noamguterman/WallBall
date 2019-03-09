@@ -20,15 +20,28 @@ public class GuiHandler : MonoBehaviour
 
     public GameObject RateApp;
 
+    public GameObject VideoTry;
+    
+    public MainBall MainBall;
+    
     private void Awake()
     {
         Progress.fillAmount = 0f;
+        TotalGames++;
+        Time.timeScale = 1;
     }
 
     private void Start()
     {
         UpdateCurrentLevel(Storage.AmountPlayed);
     }
+
+    public static int TotalGames
+    {
+        get => PlayerPrefs.GetInt("TotalGames", -1);
+        set => PlayerPrefs.SetInt("TotalGames", value);
+    }
+    
 
     private void Update()
     {
@@ -38,9 +51,23 @@ public class GuiHandler : MonoBehaviour
         }
     }
 
+    public void WatchVideo()
+    {
+        VideoTry.SetActive(false);
+        MainBall.Continue();
+    }
+
     public void ShowRestart()
     {
-        RateApp.SetActive(true);
+        Time.timeScale = 0;
+        if (TotalGames == 5)
+        {
+            RateApp.SetActive(true);
+        }
+        else
+        {
+            VideoTry.SetActive(true);
+        }
     }
 
     public void RestartLevel()
@@ -66,6 +93,11 @@ public class GuiHandler : MonoBehaviour
     {
         CurrentLevel.text = current.ToString();
         NextLevel.text = (current + 1).ToString();
+    }
+
+    public void LoadShop()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void LoadSelectLevel()
