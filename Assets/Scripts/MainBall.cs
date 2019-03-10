@@ -9,10 +9,14 @@ public class MainBall : MonoBehaviour
     private Rigidbody2D _rig;
     public float PowerForMoveUp = 1f;
     public Transform Img;
+    public Transform Particles;
     public GenerateLevel GenerateLevel;
     private TrailRenderer _trail;
     private float startGravity;
     public GamePlayHandler GamePlayHandler;
+    public CameraFollow CameraFollow;
+
+    
     private void Awake()
     {
         _rig = GetComponent<Rigidbody2D>();
@@ -48,13 +52,23 @@ public class MainBall : MonoBehaviour
             _rig.velocity = Vector2.zero;
             _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
             Animation();
+            Increase();
         }
+    }
+
+    private void Increase()
+    {
+        transform.DOScale(transform.localScale + Vector3.one * 0.1f, 0.2f);
+        _trail.startWidth += 0.05f;
     }
 
     private bool IsInvisable;
 
     public void MoveDown(float Distance)
     {
+        if (Img.gameObject.activeSelf == false)
+            return;
+        
         if (IsInvisable)
             return;
 
@@ -63,14 +77,13 @@ public class MainBall : MonoBehaviour
         transform.DOKill(true);
         IsInvisable = true;
         _rig.velocity = Vector3.zero;
-        float startMove = transform.position.y;
         //GenerateLevel.DestroyWallsInRange( startMove,startMove - Distance, true);
 
         transform.DOMoveY(transform.position.y - Distance, 1f).OnComplete(() =>
         {
             IsInvisable = false;
             _rig.velocity = Vector3.zero;
-            transform.localScale = Vector3.one;
+            Img.transform.localScale = Vector3.one;
             _canLose = false;
             Invoke("InvisibleDisable", 2f);
         });
@@ -92,10 +105,25 @@ public class MainBall : MonoBehaviour
         {
             _rig.gravityScale = 0;
             _rig.velocity = Vector3.zero;
-            GamePlayHandler.Hit();
             _active = false;
-
+            Hit();
+            StopAllCoroutines();
+            StartCoroutine(Hit_Delay());
         }
+    }
+
+    private IEnumerator Hit_Delay()
+    {
+        yield return new WaitForSeconds(1f);
+        GamePlayHandler.Hit();
+    }
+
+    private void Hit()
+    {
+        Img.gameObject.SetActive(false);
+        _trail.gameObject.SetActive(false);
+        Particles.gameObject.SetActive(true);
+        CameraFollow.Shake();
     }
 
     private void Animation()
@@ -110,6 +138,9 @@ public class MainBall : MonoBehaviour
 
     private bool IsTouch()
     {
+        if (Time.timeScale < 0.1f)
+            return false;
+        
         return Input.GetMouseButtonDown(0)
 #if UNITY_EDITOR
                || Input.GetKeyDown(KeyCode.Space)
@@ -136,6 +167,8 @@ public class MainBall : MonoBehaviour
     public void Continue()
     {
         _active = true;
+        Particles.gameObject.SetActive(false);
+        Img.gameObject.SetActive(true);
         Img.DOKill(false);
         Img.gameObject.SetActive(true);
         _rig.gravityScale = 0;

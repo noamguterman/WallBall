@@ -23,10 +23,13 @@ public class GuiHandler : MonoBehaviour
     public GameObject VideoTry;
     
     public MainBall MainBall;
+
+    public Text ProgressTxt;
     
     private void Awake()
     {
         Progress.fillAmount = 0f;
+        ProgressTxt.text = "0%";
         TotalGames++;
         Time.timeScale = 1;
     }
@@ -72,6 +75,8 @@ public class GuiHandler : MonoBehaviour
 
     public void RestartLevel()
     {
+        PointCalculation.TotalPoints = 0f;
+        //here should be best score
         SceneManager.LoadScene(0);
     }
 
@@ -84,9 +89,14 @@ public class GuiHandler : MonoBehaviour
         if (Progress.fillAmount < distance / totalDistance)
         {
             Progress.fillAmount = distance / totalDistance;
+            ProgressTxt.text = "Completed: " + Mathf.Floor(Progress.fillAmount * 100) + "%";
         }
 
-        DistanceText.text = distance + "";
+    }
+
+    public void UpdatePoints(float points)
+    {
+        DistanceText.text = Mathf.Floor(points) + "";
     }
 
     public void UpdateCurrentLevel(int current)
