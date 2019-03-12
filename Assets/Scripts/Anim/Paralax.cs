@@ -7,8 +7,16 @@ public class Paralax : MonoBehaviour
     public Transform Camera;
     public float ParalaxPower = 0.4f;
     private Vector3 StartPos;
+    private Vector3 StartParalxPos;
 
     private bool _update;
+
+    private void Awake()
+    {
+        StartParalxPos = transform.position;
+        StartParalxPos.z = Camera.position.z;
+    }
+
     private IEnumerator Start()
     {
         yield return null;
@@ -23,7 +31,7 @@ public class Paralax : MonoBehaviour
         
         var currentPos = Camera.transform.position;
 
-        transform.position = Vector3.Lerp(StartPos, currentPos, ParalaxPower);
+        transform.position = Vector3.Lerp(StartPos, currentPos + StartParalxPos, ParalaxPower);
         transform.position = new Vector3(transform.position.x, transform.position.y, 20f);
     }
 }

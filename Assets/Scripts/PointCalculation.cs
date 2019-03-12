@@ -12,13 +12,21 @@ public class PointCalculation : MonoBehaviour
     private Vector3 _startPosition;
 
     public static float TotalPoints = 0f;
-    
+
     private void Start()
     {
         _startPosition = GenerateLevel.GetStartPos();
         _lastPosition = GenerateLevel.GetStartPos();
         GuiHandler.UpdateDistance(Vector3.Distance(_startPosition, _lastPosition));
-        GuiHandler.UpdatePoints(TotalPoints);
+        if (TotalPoints < 1f)
+        {
+            var total = PlayerPrefs.GetFloat("TotalPoints", TotalPoints);
+            GuiHandler.UpdatePoints(total);
+        }
+        else
+        {
+            GuiHandler.UpdatePoints(TotalPoints);
+        }
     }
 
     void Update()
@@ -28,11 +36,6 @@ public class PointCalculation : MonoBehaviour
             IncreaseByDistance(_lastPosition.y - Ball.transform.position.y);
             _lastPosition = Ball.transform.position;
             GuiHandler.UpdateDistance(Vector3.Distance(_startPosition, _lastPosition));
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            DecreaseByTouch();
         }
     }
 
@@ -47,8 +50,9 @@ public class PointCalculation : MonoBehaviour
 
     private void IncreaseByDistance(float distance)
     {
-        TotalPoints += distance;
+        TotalPoints += distance * 10f;
         GuiHandler.UpdatePoints(TotalPoints);
+        PlayerPrefs.SetFloat("TotalPoints", TotalPoints);
     }
 
 }

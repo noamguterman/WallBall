@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainBall : MonoBehaviour
@@ -15,7 +16,9 @@ public class MainBall : MonoBehaviour
     private float startGravity;
     public GamePlayHandler GamePlayHandler;
     public CameraFollow CameraFollow;
-
+    private Color _startTrailColor;
+    private Vector3 _lastPosition;
+    
     
     private void Awake()
     {
@@ -24,13 +27,23 @@ public class MainBall : MonoBehaviour
         _rig.gravityScale = 0;
         Img.DOScale(new Vector3(0.7f, 1.5f, 1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
         _trail = GetComponentInChildren<TrailRenderer>();
+        _trail.gameObject.SetActive(false);
+    }
+
+    public void StartSmaller()
+    {
+        transform.localScale = Vector3.one * 0.7f;
+        _trail.startWidth = transform.localScale.x * 0.6f;
     }
 
     private IEnumerator Start()
     {
-        _trail.gameObject.SetActive(false);
+        _startTrailColor = _trail.startColor;
+        _trail.startWidth = transform.localScale.x * 0.6f;
         yield return null;
         _trail.gameObject.SetActive(true);
+        _lastPosition = transform.position;
+
     }
 
     private bool _active = true;
@@ -45,6 +58,18 @@ public class MainBall : MonoBehaviour
         if (IsInvisable == true)
             return;
         
+        UpdateColor();
+        
+        if (_lastPosition.y > transform.position.y)
+        {
+            _lastPosition = transform.position;
+        }
+
+        
+        if (_lastPosition.y + 5 < transform.position.y)
+        {
+            return;
+        }
         if (IsTouch())
         {
             _canLose = true;
@@ -54,12 +79,29 @@ public class MainBall : MonoBehaviour
             Animation();
             Increase();
         }
+
+    }
+
+    private void UpdateColor()
+    {
+        var c =  Color.Lerp(_startTrailColor, Color.red, _rig.velocity.y / -20);
+        SetColor(c);
+    }
+
+    private void SetColor(Color c)
+    {
+        _trail.startColor = c;
+        _trail.endColor = c;
+        Img.GetComponent<SpriteRenderer>().color = c;
     }
 
     private void Increase()
     {
-        transform.DOScale(transform.localScale + Vector3.one * 0.1f, 0.2f);
-        _trail.startWidth += 0.05f;
+        if (transform.localScale.x < 3f)
+        {
+            transform.DOScale(transform.localScale + Vector3.one * 0.1f, 0.2f);
+            _trail.startWidth += 0.05f;
+        }
     }
 
     private bool IsInvisable;
@@ -94,7 +136,7 @@ public class MainBall : MonoBehaviour
         _canLose = true;
     }
 
-    private bool _canLose = true;
+    private bool _canLose = false;
 
     public void TouchObstacle()
     {
@@ -140,6 +182,9 @@ public class MainBall : MonoBehaviour
     {
         if (Time.timeScale < 0.1f)
             return false;
+
+        if (EventSystem.current.IsPointerOverGameObject())
+            return false;
         
         return Input.GetMouseButtonDown(0)
 #if UNITY_EDITOR
@@ -166,11 +211,19 @@ public class MainBall : MonoBehaviour
 
     public void Continue()
     {
+        if (transform.localScale.x > 1f)
+        {
+            transform.localScale = Vector3.one;
+        }
+            
         _active = true;
         Particles.gameObject.SetActive(false);
         Img.gameObject.SetActive(true);
         Img.DOKill(false);
         Img.gameObject.SetActive(true);
+        
+        _trail.startWidth = transform.localScale.x * 0.6f;
+
         _rig.gravityScale = 0;
         _canLose = false;
         Time.timeScale = 1;

@@ -65,6 +65,78 @@ public class GenerateLevel : MonoBehaviour
             StartBall.transform.position + Vector3.up * (ballHigh), level.PowerUpAmount);
         
         OnSpeedUp_SaveZone();
+        DeleteTooCloseObstacles(ballSize);
+
+        RemoveUnderFinish();
+        AllingAllWalls();
+        RemoveAtEndObstacles(endPos.y);
+    }
+
+    private void RemoveAtEndObstacles(float endPos)
+    {
+        _allRandomWalls.RemoveAll(_ => _ == null);
+        var list = _allRandomWalls.FindAll(_ => _.transform.position.y > endPos - 4f);
+        foreach (var o in list)
+        {
+            Destroy(o.gameObject);
+        }
+        _allRandomWalls.RemoveAll(_ => _ == null);
+    }
+
+    private void AllingAllWalls()
+    {
+        foreach (var wall in _allRandomWalls)
+        {
+            if (wall.transform.position.x > 0f)
+            {
+                wall.transform.position = new Vector3(StartRightWall.transform.position.x,
+                    wall.transform.position.y, wall.transform.position.z);
+            }
+            else
+            {
+                wall.transform.position = new Vector3(StartLeftWall.transform.position.x, 
+                    wall.transform.position.y, wall.transform.position.z);
+            }
+        }
+    }
+
+    private void RemoveUnderFinish()
+    {
+        _allRandomWalls.RemoveAll(_ => _ == null);
+        var l = _allRandomWalls.FindAll(_ => _.transform.position.y < -4.38f);
+        foreach (var r in l)
+        {
+            Destroy(r.gameObject);
+        }
+        _allRandomWalls.RemoveAll(_ => _ == null);
+    }
+
+    private void DeleteTooCloseObstacles(float ballSize)
+    {
+        foreach (var wall in _allRandomWalls)
+        {
+            if (wall != null)
+            {
+               var list = _allRandomWalls.FindAll(_ =>
+                {
+
+                    if (_ != null && wall != null)
+                    {
+                        if (wall != _)
+                        {
+                            return Mathf.Abs(wall.transform.position.y - _.transform.position.y) < ballSize * 1.4f;
+                        }
+                    }
+
+                    return false;
+                });
+
+               foreach (var o in list)
+               {
+                   DestroyImmediate(o.gameObject);
+               }
+            }
+        }
     }
 
     private void RemoveDublicates()

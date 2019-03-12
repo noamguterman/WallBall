@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -25,6 +26,8 @@ public class GuiHandler : MonoBehaviour
     public MainBall MainBall;
 
     public Text ProgressTxt;
+
+    public GameObject TapTxt;
     
     private void Awake()
     {
@@ -32,6 +35,7 @@ public class GuiHandler : MonoBehaviour
         ProgressTxt.text = "0%";
         TotalGames++;
         Time.timeScale = 1;
+        TapTxt.SetActive(Storage.AmountPlayed < 4);
     }
 
     private void Start()
@@ -48,6 +52,9 @@ public class GuiHandler : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+        
         if (Input.GetMouseButtonUp(0))
         {
             Buttom.gameObject.SetActive(false);
@@ -69,8 +76,21 @@ public class GuiHandler : MonoBehaviour
         }
         else
         {
-            VideoTry.SetActive(true);
+            if (IsBallFar())
+            {
+                VideoTry.SetActive(true);
+            }
+            else
+            {
+                RestartLevel();
+            }
         }
+    }
+
+    private bool IsBallFar()
+    {
+        var pos = MainBall.transform.position;
+        return Vector3.Distance(pos, GenerateLevel.GetStartPos()) > 20f;
     }
 
     public void RestartLevel()
