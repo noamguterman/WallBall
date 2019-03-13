@@ -32,33 +32,43 @@ public class GenerateLevel : MonoBehaviour
         var ballHigh = AllSettings.StartPosition.Evaluate(time);
         var ballSize = AllSettings.SizeOfSideBalls.Evaluate(time);
         var speed = AllSettings.BallObstacleSpeed.Evaluate(time);
+
+        if (Settings.GameType == 1)
+        {
+            amountOfWall = 200;
+            ballHigh = 600;
+            ballSize = 1.2f;
+            speed = 10f;
+        }
+        
         GenerateLevelArgs(amountOfWall, ballHigh, ballSize, speed);
 
         var level = LevelSettings.GetLevel(Storage.AmountPlayed);
         var startPos = StartBall.transform.position;
         var endPos = StartBall.transform.position + Vector3.up * (ballHigh);
-        
 
 
-
-        if (level.AmountChunk1)
+        if (Settings.GameType == 0)
         {
-            GenerateChucks(Chunck1, startPos, endPos / 3,
-                ballSize, speed);
+            if (level.AmountChunk1)
+            {
+                GenerateChucks(Chunck1, startPos, endPos / 3,
+                    ballSize, speed);
+            }
+
+            if (level.AmountChunk2)
+            {
+                GenerateChucks(Chunck2, startPos + endPos / 3, endPos * 2 / 3,
+                    ballSize, speed);
+            }
+
+            if (level.AmountChunk3)
+            {
+                GenerateChucks(Chunck3, startPos + endPos * 2 / 3, endPos,
+                    ballSize, speed);
+            }
         }
 
-        if (level.AmountChunk2)
-        {
-            GenerateChucks(Chunck2, startPos + endPos / 3, endPos * 2 / 3,
-                ballSize, speed);
-        }
-
-        if (level.AmountChunk3)
-        {
-            GenerateChucks(Chunck3, startPos + endPos * 2 / 3, endPos,
-                ballSize, speed);
-        }
-        
         RemoveDublicates();
         
         GeneratePowerUps(StartLeftWall.transform.position,
@@ -141,6 +151,8 @@ public class GenerateLevel : MonoBehaviour
 
     private void RemoveDublicates()
     {
+        _allRandomWalls.RemoveAll(_ => _ == null);
+        
         for (int i = 0; i < _allRandomWalls.Count; i++)
         {
             var wall = _allRandomWalls[i];
@@ -246,6 +258,10 @@ public class GenerateLevel : MonoBehaviour
     {
         float time = Storage.AmountPlayed;
         var ballHigh = AllSettings.StartPosition.Evaluate(time);
+        if (Settings.GameType == 1)
+        {
+            ballHigh = 600;
+        }
         return StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
     }
 

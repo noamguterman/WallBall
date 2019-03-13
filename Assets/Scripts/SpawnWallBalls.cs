@@ -15,6 +15,8 @@ public class SpawnWallBalls : MonoBehaviour
     public Transform Parent;
     private Color _randColor;
 
+    private Rigidbody2D _rig;
+
     private void Awake()
     {
         _randColor =  Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
@@ -46,19 +48,33 @@ public class SpawnWallBalls : MonoBehaviour
         }
 
         var t = transform.Find("Sprites");
-        t.localScale = Vector3.one * Size * 0.8f;
+        t.localScale = Vector3.one * Size * 0.7f;
         t = transform.Find("Mask");
-        t.transform.localScale = new Vector3(Size * 0.8f, 1f, 1f);
+        t.transform.localScale = new Vector3(Size * 0.7f, 1f, 1f);
+    }
+
+    private void Update()
+    {
+        if (_rig == null)
+            return;
+        
+        if (Settings.GameType == 1)
+        {
+            if (Time.deltaTime > float.Epsilon)
+            {
+                _rig.velocity *= 1 + Time.deltaTime / 50f;
+            }
+        }
     }
 
     private void Spawn()
     {
-        var g = Instantiate(Prefab, transform.position, Quaternion.identity);
+        var g = Instantiate(Prefab, transform.position + Vector3.left * Mathf.Clamp(Direction, -1f, 1f) * 2f, Quaternion.identity);
         g.transform.localScale = Vector3.one * Size;
         g.transform.parent = Parent;
 
-        var rig = g.GetComponent<Rigidbody2D>();
-        rig.AddForce(Vector2.right * Direction * SpeedBullet);
+        _rig = g.GetComponent<Rigidbody2D>();
+        _rig.AddForce(Vector2.right * Direction * SpeedBullet);
         g.GetComponent<SpriteRenderer>().color = _randColor;
         //g.transform.DOMoveX(g.transform.position.x + Direction, SpeedBullet);
         //Destroy(g, 10f);

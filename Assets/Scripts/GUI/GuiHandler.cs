@@ -28,6 +28,8 @@ public class GuiHandler : MonoBehaviour
     public Text ProgressTxt;
 
     public GameObject TapTxt;
+
+    public GameObject P;
     
     private void Awake()
     {
@@ -36,6 +38,11 @@ public class GuiHandler : MonoBehaviour
         TotalGames++;
         Time.timeScale = 1;
         TapTxt.SetActive(Storage.AmountPlayed < 4);
+
+        if (Settings.GameType == 1)
+        {
+            P.SetActive(false);
+        }
     }
 
     private void Start()
