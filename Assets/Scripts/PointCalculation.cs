@@ -12,20 +12,38 @@ public class PointCalculation : MonoBehaviour
     private Vector3 _startPosition;
 
     public static float TotalPoints = 0f;
+    public static float TotalPointsEndless = 0f;
 
     private void Start()
     {
         _startPosition = GenerateLevel.GetStartPos();
         _lastPosition = GenerateLevel.GetStartPos();
         GuiHandler.UpdateDistance(Vector3.Distance(_startPosition, _lastPosition));
-        if (TotalPoints < 1f)
+
+
+        if (Settings.GameType == 1)
         {
-            var total = PlayerPrefs.GetFloat("TotalPoints", TotalPoints);
-            GuiHandler.UpdatePoints(total);
+            if (TotalPointsEndless < 1f)
+            {
+                var total = PlayerPrefs.GetFloat("TotalPointsEndless", TotalPointsEndless);
+                GuiHandler.UpdatePoints(total);
+            }
+            else
+            {
+                GuiHandler.UpdatePoints(TotalPointsEndless);
+            }
         }
         else
         {
-            GuiHandler.UpdatePoints(TotalPoints);
+            if (TotalPoints < 1f)
+            {
+                var total = PlayerPrefs.GetFloat("TotalPoints", TotalPoints);
+                GuiHandler.UpdatePoints(total);
+            }
+            else
+            {
+                GuiHandler.UpdatePoints(TotalPoints);
+            }
         }
     }
 
@@ -43,16 +61,43 @@ public class PointCalculation : MonoBehaviour
     {
         if (_startPosition.y - Ball.transform.position.y > 1f)
         {
-            TotalPoints -= TotalPoints / 10f;
-            GuiHandler.UpdatePoints(TotalPoints);
+            if (Settings.GameType == 1)
+            {
+                TotalPointsEndless -= TotalPointsEndless / 10f;
+                GuiHandler.UpdatePoints(TotalPointsEndless);
+            }
+            else
+            {
+                TotalPoints -= TotalPoints / 10f;
+                GuiHandler.UpdatePoints(TotalPoints);
+            }
         }
     }
 
     private void IncreaseByDistance(float distance)
     {
-        TotalPoints += distance * 10f;
-        GuiHandler.UpdatePoints(TotalPoints);
-        PlayerPrefs.SetFloat("TotalPoints", TotalPoints);
+        if (Settings.GameType == 1)
+        {
+            TotalPointsEndless += distance * 10f;
+            GuiHandler.UpdatePoints(TotalPointsEndless);
+            var last = PlayerPrefs.GetFloat("TotalPointsEndless", TotalPointsEndless);
+            if (last < TotalPointsEndless)
+            {
+                Debug.Log(TotalPointsEndless);
+                PlayerPrefs.SetFloat("TotalPointsEndless", TotalPointsEndless);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            TotalPoints += distance * 10f;
+            GuiHandler.UpdatePoints(TotalPoints);
+            var last = PlayerPrefs.GetFloat("TotalPoints", TotalPoints);
+            if (last < TotalPoints)
+            {
+                PlayerPrefs.SetFloat("TotalPoints", TotalPoints);
+            }
+        }
     }
 
 }

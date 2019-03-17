@@ -29,7 +29,7 @@ public class GuiHandler : MonoBehaviour
 
     public GameObject TapTxt;
 
-    public GameObject P;
+    public List<GameObject> P;
     
     private void Awake()
     {
@@ -41,7 +41,10 @@ public class GuiHandler : MonoBehaviour
 
         if (Settings.GameType == 1)
         {
-            P.SetActive(false);
+            foreach (var o in P)
+            {
+                o.SetActive(false);
+            }
         }
     }
 
@@ -103,6 +106,7 @@ public class GuiHandler : MonoBehaviour
     public void RestartLevel()
     {
         PointCalculation.TotalPoints = 0f;
+        PointCalculation.TotalPointsEndless = 0f;
         //here should be best score
         SceneManager.LoadScene(0);
     }

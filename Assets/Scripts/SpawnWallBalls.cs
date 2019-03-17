@@ -48,7 +48,7 @@ public class SpawnWallBalls : MonoBehaviour
         }
 
         var t = transform.Find("Sprites");
-        t.localScale = Vector3.one * Size * 0.7f;
+        t.localScale = new Vector3(Size * 0.6f, Size * 0.45f);
         t = transform.Find("Mask");
         t.transform.localScale = new Vector3(Size * 0.7f, 1f, 1f);
     }
@@ -69,6 +69,7 @@ public class SpawnWallBalls : MonoBehaviour
 
     private void Spawn()
     {
+        Parent.localScale = new Vector3(1f, Size/2f, 1f);
         var g = Instantiate(Prefab, transform.position + Vector3.left * Mathf.Clamp(Direction, -1f, 1f) * 2f, Quaternion.identity);
         g.transform.localScale = Vector3.one * Size;
         g.transform.parent = Parent;

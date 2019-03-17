@@ -27,6 +27,7 @@ public class Settings : MonoBehaviour
     
     public void LoadLevel(int level)
     {
+        GuiHandler.TotalGames = 0;
         PlayerPrefs.SetInt(Storage.Level, level);
        // SceneManager.LoadScene(0);
     }

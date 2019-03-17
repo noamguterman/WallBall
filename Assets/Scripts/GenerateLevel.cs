@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class GenerateLevel : MonoBehaviour
@@ -25,7 +26,26 @@ public class GenerateLevel : MonoBehaviour
     private List<GameObject> _allRandomWalls = new List<GameObject>();
     private List<GameObject> chunks = new List<GameObject>();
     private List<SpeedUp> _speedUps = new List<SpeedUp>();
+
+    public List<GameObject> levelsPrefab;
+    
     public void Generate()
+    {
+        DOTween.SetTweensCapacity(500, 50);
+        if (Storage.AmountPlayed < 10)
+        {
+            float time = Storage.AmountPlayed;
+            var ballHigh = AllSettings.StartPosition.Evaluate(time);
+            Instantiate(levelsPrefab[Storage.AmountPlayed]);
+            MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
+        }
+        else
+        {
+            GenerateRandom();
+        }
+    }
+
+    private void GenerateRandom()
     {
         float time = Storage.AmountPlayed;
         int amountOfWall = (int) AllSettings.AmountOfRingsOnSide.Evaluate(time);

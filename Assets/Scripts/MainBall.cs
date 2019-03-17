@@ -97,7 +97,7 @@ public class MainBall : MonoBehaviour
 
     private void Increase()
     {
-        if (transform.localScale.x < 3f)
+        if (transform.localScale.x < 5f)
         {
             transform.DOScale(transform.localScale + Vector3.one * 0.1f, 0.2f);
             _trail.startWidth += 0.05f;
