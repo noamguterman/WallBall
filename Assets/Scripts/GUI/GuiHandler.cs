@@ -30,6 +30,8 @@ public class GuiHandler : MonoBehaviour
     public GameObject TapTxt;
 
     public List<GameObject> P;
+
+    public GameObject Crown;
     
     private void Awake()
     {
@@ -39,8 +41,15 @@ public class GuiHandler : MonoBehaviour
         Time.timeScale = 1;
         TapTxt.SetActive(Storage.AmountPlayed < 4);
 
+        if (PointCalculation.TotalPoints > 0.1f)
+        {
+            Crown.SetActive(false);
+        }
+
         if (Settings.GameType == 1)
         {
+            Crown.SetActive(false);
+            //Completed.gameObject.SetActive(false);
             foreach (var o in P)
             {
                 o.SetActive(false);
@@ -67,8 +76,16 @@ public class GuiHandler : MonoBehaviour
         
         if (Input.GetMouseButtonUp(0))
         {
+
             Buttom.gameObject.SetActive(false);
         }
+        
+        
+        if (PointCalculation.TotalPoints > 0.1f)
+        {
+            Crown.SetActive(false);
+        }
+
     }
 
     public void WatchVideo()
@@ -119,8 +136,15 @@ public class GuiHandler : MonoBehaviour
         var totalDistance = Vector3.Distance(start, end);
         if (Progress.fillAmount < distance / totalDistance)
         {
-            Progress.fillAmount = distance / totalDistance;
-            ProgressTxt.text = "Completed: " + Mathf.Floor(Progress.fillAmount * 100) + "%";
+            if (Settings.GameType != 1)
+            {
+                Progress.fillAmount = distance / totalDistance;
+                ProgressTxt.text = "Completed: " + Mathf.Floor(Progress.fillAmount * 100) + "%";
+            }
+            else
+            {
+                ProgressTxt.text = "";
+            }
         }
 
     }

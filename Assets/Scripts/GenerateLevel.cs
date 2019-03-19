@@ -92,7 +92,7 @@ public class GenerateLevel : MonoBehaviour
         RemoveDublicates();
         
         GeneratePowerUps(StartLeftWall.transform.position,
-            StartBall.transform.position + Vector3.up * (ballHigh), level.PowerUpAmount);
+            StartBall.transform.position + Vector3.up * (ballHigh/ 2), level.PowerUpAmount);
         
         OnSpeedUp_SaveZone();
         DeleteTooCloseObstacles(ballSize);
@@ -234,6 +234,8 @@ public class GenerateLevel : MonoBehaviour
 
     private void GenerateChucks(Chunck chunck, Vector3 start, Vector3 end, float size, float speed)
     {
+        size += Random.Range(0f, 1f);
+        
         var randomPos = Random.Range(start.y, end.y);
 
         var c =Instantiate(chunck, new Vector3(start.x, randomPos, start.z), Quaternion.identity);
@@ -295,6 +297,8 @@ public class GenerateLevel : MonoBehaviour
         float offset = ballHigh / (float) amountOfWalls;
 
         MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
+
+        sizeOfBall += Random.Range(0f, 1f);
         
         for (int i = 0; i < amountOfWalls; i++)
         {

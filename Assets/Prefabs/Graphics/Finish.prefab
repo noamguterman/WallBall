@@ -4960,7 +4960,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806124141112796576}
-  m_Text: Level Complite
+  m_Text: Level Completed
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
