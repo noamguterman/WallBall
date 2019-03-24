@@ -32,6 +32,10 @@ public class GuiHandler : MonoBehaviour
     public List<GameObject> P;
 
     public GameObject Crown;
+
+    public GameObject ParentToShowOpenBall;
+    public Image OpenedBall;
+    public SpriteBallsSO SpriteBallsSo;
     
     private void Awake()
     {
@@ -66,6 +70,42 @@ public class GuiHandler : MonoBehaviour
     {
         get => PlayerPrefs.GetInt("TotalGames", -1);
         set => PlayerPrefs.SetInt("TotalGames", value);
+    }
+
+    public int _lastOpen; 
+
+    public void ShowOpenNewBall()
+    {
+        var opended = UnlockBallsData.Instance.OpenRandom();
+        if (opended > 0)
+        {
+            _lastOpen = opended;
+            OpenedBall.sprite = SpriteBallsSo._list[opended];
+            ParentToShowOpenBall.SetActive(true);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    public void EquipLastOpen()
+    {
+        UnlockBallsData.Instance.currentBall = _lastOpen;
+        SceneManager.LoadScene(0);
+    }
+
+    public void OpenThreeRandomBalls()
+    {
+        UnlockBallsData.Instance.OpenRandom();
+        UnlockBallsData.Instance.OpenRandom();
+        UnlockBallsData.Instance.OpenRandom();
+        SceneManager.LoadScene(0);
+    }
+
+    public void OKAY()
+    {
+        SceneManager.LoadScene(0);
     }
     
 

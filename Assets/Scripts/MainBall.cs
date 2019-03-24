@@ -18,10 +18,14 @@ public class MainBall : MonoBehaviour
     public CameraFollow CameraFollow;
     private Color _startTrailColor;
     private Vector3 _lastPosition;
+
+    public SpriteRenderer MainBallRenderer;
+    public SpriteBallsSO Sprites;
     
     
     private void Awake()
     {
+        MainBallRenderer.sprite = Sprites._list[UnlockBallsData.Instance.currentBall];
         _rig = GetComponent<Rigidbody2D>();
         startGravity = _rig.gravityScale;
         _rig.gravityScale = 0;

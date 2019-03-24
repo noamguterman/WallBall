@@ -4834,7 +4834,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.42107022
+        value: 0.6121255
         inSlope: 0.42406
         outSlope: 0.42406
         tangentMode: 0
@@ -4855,7 +4855,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9607843, g: 0.56493723, b: 0.47843137, a: 1}
+      key0: {r: 0.9159595, g: 0.9622642, b: 0.4765931, a: 1}
       key1: {r: 0.9159595, g: 0.9622642, b: 0.4765931, a: 1}
       key2: {r: 0.9159595, g: 0.9622642, b: 0.4765931, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -4864,7 +4864,7 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 3855
+      ctime1: 65535
       ctime2: 65535
       ctime3: 0
       ctime4: 0
@@ -4880,7 +4880,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_NumColorKeys: 3
+      m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
@@ -4960,7 +4960,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8e86d0daa46d5b44185a8168a14fe2f2, type: 3}
-  m_Color: {r: 0.9159595, g: 0.9622642, b: 0.4765931, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5024,6 +5024,8 @@ MonoBehaviour:
   GenerateLevel: {fileID: 0}
   GamePlayHandler: {fileID: 0}
   CameraFollow: {fileID: 0}
+  MainBallRenderer: {fileID: 5747986337486667725}
+  Sprites: {fileID: 11400000, guid: 4465f5c5ce1c1e44587fe307796c4a81, type: 2}
 --- !u!50 &5747986338661828924
 Rigidbody2D:
   serializedVersion: 4

@@ -36,7 +36,13 @@ public class GenerateLevel : MonoBehaviour
         {
             float time = Storage.AmountPlayed;
             var ballHigh = AllSettings.StartPosition.Evaluate(time);
-            Instantiate(levelsPrefab[Storage.AmountPlayed]);
+            var p = Instantiate(levelsPrefab[Storage.AmountPlayed]);
+            var walls = p.GetComponentsInChildren<SpawnWallBalls>();
+            foreach (var wall in walls)
+            {
+                wall.Size += Random.Range(0, 0.3f);
+            }
+            
             MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
         }
         else
@@ -73,19 +79,19 @@ public class GenerateLevel : MonoBehaviour
             if (level.AmountChunk1)
             {
                 GenerateChucks(Chunck1, startPos, endPos / 3,
-                    ballSize, speed);
+                    ballSize + Random.Range(0f, 0.6f), speed);
             }
 
             if (level.AmountChunk2)
             {
                 GenerateChucks(Chunck2, startPos + endPos / 3, endPos * 2 / 3,
-                    ballSize, speed);
+                    ballSize+ Random.Range(0f, 0.6f), speed);
             }
 
             if (level.AmountChunk3)
             {
                 GenerateChucks(Chunck3, startPos + endPos * 2 / 3, endPos,
-                    ballSize, speed);
+                    ballSize+ Random.Range(0f, 0.6f), speed);
             }
         }
 
@@ -234,7 +240,7 @@ public class GenerateLevel : MonoBehaviour
 
     private void GenerateChucks(Chunck chunck, Vector3 start, Vector3 end, float size, float speed)
     {
-        size += Random.Range(0f, 1f);
+        size += Random.Range(0f, 4f);
         
         var randomPos = Random.Range(start.y, end.y);
 
@@ -298,12 +304,13 @@ public class GenerateLevel : MonoBehaviour
 
         MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
 
-        sizeOfBall += Random.Range(0f, 1f);
-        
+
         for (int i = 0; i < amountOfWalls; i++)
         {
-            InitLeftWall(StartLeftWall.transform.position.y + (i * offset), sizeOfBall, speedOfBall);
-            InitRightWall(StartRightWall.transform.position.y + (i * offset), sizeOfBall, speedOfBall);
+            InitLeftWall(StartLeftWall.transform.position.y + (i * offset), sizeOfBall + Random.Range(0f, 0.4f)
+                , speedOfBall);
+            InitRightWall(StartRightWall.transform.position.y + (i * offset), sizeOfBall + Random.Range(0f, 0.4f),
+                speedOfBall);
         }
     }
 
@@ -320,7 +327,7 @@ public class GenerateLevel : MonoBehaviour
     private void InitRightWall(float y, float size, float speed)
     {
         var g = Instantiate(PrefabRightWall);
-        y += Random.Range(-7f, 7f);
+        y += Random.Range(-2f, 2f);
         g.transform.position = new Vector3(StartRightWall.transform.position.x, y);        
         g.Size = size;
         g.SpeedBullet = speed;

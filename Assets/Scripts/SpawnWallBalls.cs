@@ -24,6 +24,7 @@ public class SpawnWallBalls : MonoBehaviour
 
     IEnumerator Start()
     {
+        yield return null;
         RandomSpritesColor();
         _renderer = GetComponent<SpriteRenderer>();
         //while (true)
@@ -45,6 +46,11 @@ public class SpawnWallBalls : MonoBehaviour
         foreach (var a in c)
         {
             a.color = _randColor;
+        }
+
+        if (Size > 3f)
+        {
+            Size = 3f;
         }
 
         var t = transform.Find("Sprites");
