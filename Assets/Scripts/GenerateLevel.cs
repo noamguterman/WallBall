@@ -56,8 +56,8 @@ public class GenerateLevel : MonoBehaviour
         float time = Storage.AmountPlayed;
         int amountOfWall = (int) AllSettings.AmountOfRingsOnSide.Evaluate(time);
         var ballHigh = AllSettings.StartPosition.Evaluate(time);
-        var ballSize = AllSettings.SizeOfSideBalls.Evaluate(time);
-        var speed = AllSettings.BallObstacleSpeed.Evaluate(time);
+        var ballSize = 0.8f;//AllSettings.SizeOfSideBalls.Evaluate(time);
+        var speed = 10f;//AllSettings.BallObstacleSpeed.Evaluate(time);
 
         if (Settings.GameType == 1)
         {
@@ -307,9 +307,9 @@ public class GenerateLevel : MonoBehaviour
 
         for (int i = 0; i < amountOfWalls; i++)
         {
-            InitLeftWall(StartLeftWall.transform.position.y + (i * offset), sizeOfBall + Random.Range(0f, 0.4f)
+            InitLeftWall(StartLeftWall.transform.position.y + (i * offset), sizeOfBall + Random.Range(-2f, 4f)
                 , speedOfBall);
-            InitRightWall(StartRightWall.transform.position.y + (i * offset), sizeOfBall + Random.Range(0f, 0.4f),
+            InitRightWall(StartRightWall.transform.position.y + (i * offset), sizeOfBall + Random.Range(-2f, 4f),
                 speedOfBall);
         }
     }
@@ -320,7 +320,7 @@ public class GenerateLevel : MonoBehaviour
         y += Random.Range(-2f, 2f);
         g.transform.position = new Vector3(StartLeftWall.transform.position.x, y);
         g.Size = size;
-        g.SpeedBullet = speed;
+        g.SpeedBullet = speed + Random.Range(-2f, 8f);
         _allRandomWalls.Add(g.gameObject);
     }
 
@@ -330,7 +330,7 @@ public class GenerateLevel : MonoBehaviour
         y += Random.Range(-2f, 2f);
         g.transform.position = new Vector3(StartRightWall.transform.position.x, y);        
         g.Size = size;
-        g.SpeedBullet = speed;
+        g.SpeedBullet = speed+ Random.Range(-2f, 8f);
         _allRandomWalls.Add(g.gameObject);
 
     }

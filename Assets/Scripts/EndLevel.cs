@@ -47,7 +47,7 @@ public class EndLevel : MonoBehaviour
     private IEnumerator EndLevel_Routine(MainBall ball)
     {
         yield return new WaitForSeconds(2f);
-        if (Storage.AmountPlayed % 5 == 0)
+        if (Storage.AmountPlayed % 8 == 0)
         {
             GuiHandler.ShowOpenNewBall();
         }

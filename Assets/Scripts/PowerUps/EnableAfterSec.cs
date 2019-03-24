@@ -11,7 +11,7 @@ public class EnableAfterSec : MonoBehaviour
     {
         Enable.transform.DOKill(false);
         Enable.SetActive(false);
-        Enable.transform.DOScale(Vector3.one, 2f).SetUpdate(UpdateType.Normal, true).OnComplete(() =>
+        Enable.transform.DOScale(Vector3.one, 1f).SetUpdate(UpdateType.Normal, true).OnComplete(() =>
         {
             Enable.SetActive(true);
         });

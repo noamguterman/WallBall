@@ -156,8 +156,7 @@ public class GuiHandler : MonoBehaviour
 
     private bool IsBallFar()
     {
-        var pos = MainBall.transform.position;
-        return Vector3.Distance(pos, GenerateLevel.GetStartPos()) > 20f;
+        return Progress.fillAmount > 0.3f;
     }
 
     public void RestartLevel()

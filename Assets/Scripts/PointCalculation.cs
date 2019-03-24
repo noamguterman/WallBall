@@ -92,7 +92,7 @@ public class PointCalculation : MonoBehaviour
         {
             TotalPoints += distance * 10f;
             GuiHandler.UpdatePoints(TotalPoints);
-            var last = PlayerPrefs.GetFloat("TotalPoints", TotalPoints);
+            var last = PlayerPrefs.GetFloat("TotalPoints", 0f);
             if (last < TotalPoints)
             {
                 PlayerPrefs.SetFloat("TotalPoints", TotalPoints);

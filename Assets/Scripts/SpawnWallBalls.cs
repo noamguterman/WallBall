@@ -48,9 +48,14 @@ public class SpawnWallBalls : MonoBehaviour
             a.color = _randColor;
         }
 
-        if (Size > 3f)
+        if (Size > 2f)
         {
-            Size = 3f;
+            Size = 2f;
+        }
+
+        if (Size < 0.8f)
+        {
+            Size = 0.8f;
         }
 
         var t = transform.Find("Sprites");

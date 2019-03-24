@@ -5049,7 +5049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1592313119197231487}
   - component: {fileID: 2547489615631893636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

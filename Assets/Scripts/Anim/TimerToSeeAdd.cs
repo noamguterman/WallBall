@@ -21,8 +21,8 @@ public class TimerToSeeAdd : MonoBehaviour
     {
         var t = (System.DateTime.Now - _call);
 
-        _txt.text = "" + (5f - Mathf.Floor((float) t.TotalSeconds));
-        if (t.TotalSeconds > 5.3f)
+        _txt.text = "" + (7f - Mathf.Floor((float) t.TotalSeconds));
+        if (t.TotalSeconds > 7.3f)
         {
             GuiHandler.RestartLevel();
         }

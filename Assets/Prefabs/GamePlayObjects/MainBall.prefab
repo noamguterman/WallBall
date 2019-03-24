@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1393027143}
   - component: {fileID: 1393027145}
   - component: {fileID: 1393027144}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4766,7 +4766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5747986337443206309}
   - component: {fileID: 5747986337443206306}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4901,7 +4901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5747986337486667724}
   - component: {fileID: 5747986337486667725}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4982,7 +4982,7 @@ GameObject:
   - component: {fileID: 5747986338661828925}
   - component: {fileID: 5747986338661828924}
   - component: {fileID: 5747986338661828927}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MainBall
   m_TagString: Player
   m_Icon: {fileID: 0}
