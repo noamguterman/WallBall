@@ -30,7 +30,7 @@ public class MainBall : MonoBehaviour
         startGravity = _rig.gravityScale;
         _rig.gravityScale = 0;
         transform.localScale = Vector3.one * Random.Range(1f, 2f);
-        Img.DOScale(new Vector3(0.7f, 1.5f, 1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
+        //Img.DOScale(new Vector3(0.7f, 1.5f, 1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
         _trail = GetComponentInChildren<TrailRenderer>();
         _trail.gameObject.SetActive(false);
     }
