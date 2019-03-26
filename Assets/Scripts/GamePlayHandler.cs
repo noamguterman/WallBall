@@ -38,7 +38,7 @@ public class GamePlayHandler : MonoBehaviour
     {
         var end = GenerateLevel.GetStartPos();
         var start = GenerateLevel.GetEndPos();
-        var place = Vector3.Lerp(start, end, 0.7f);
+        var place = Vector3.Lerp(start, end, 0.5f);
         MainBall.transform.position = place;
     }
 

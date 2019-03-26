@@ -9,6 +9,8 @@ public class DeadTrigger : MonoBehaviour
 {
     private Vector3 _startScale;
     private SpriteRenderer _renderer;
+
+    public Color endColor;
     private IEnumerator Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
@@ -17,7 +19,7 @@ public class DeadTrigger : MonoBehaviour
         _startScale = transform.localScale;
         transform.DOScale(_startScale * 1.2f, 0.5f).SetLoops(-1, LoopType.Yoyo);
         var start = _renderer.color;
-        var rand = Color.Lerp(start, Color.red, Random.Range(0, 0.5f));
+        var rand = Color.Lerp(start, endColor, Random.Range(0, 0.5f));
         _renderer.DOColor(rand, 0.5f).SetLoops(-1, LoopType.Yoyo);
     }
 

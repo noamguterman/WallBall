@@ -9,7 +9,7 @@ public class SpeedUp : MonoBehaviour
 
     private void Start()
     {
-        transform.DOMoveX(transform.position.x + 4f, 3f).SetLoops(-1, LoopType.Yoyo);
+        transform.DOMoveX(transform.position.x + 10f, 4f).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

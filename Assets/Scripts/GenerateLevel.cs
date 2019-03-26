@@ -56,7 +56,7 @@ public class GenerateLevel : MonoBehaviour
         float time = Storage.AmountPlayed;
         int amountOfWall = (int) AllSettings.AmountOfRingsOnSide.Evaluate(time);
         var ballHigh = AllSettings.StartPosition.Evaluate(time);
-        var ballSize = 0.8f;//AllSettings.SizeOfSideBalls.Evaluate(time);
+        var ballSize = 0.4f;//AllSettings.SizeOfSideBalls.Evaluate(time);
         var speed = 10f;//AllSettings.BallObstacleSpeed.Evaluate(time);
 
         if (Settings.GameType == 1)
@@ -97,11 +97,11 @@ public class GenerateLevel : MonoBehaviour
 
         RemoveDublicates();
         
-        GeneratePowerUps(StartLeftWall.transform.position,
+        GeneratePowerUps(StartLeftWall.transform.position + Vector3.left * 2f,
             StartBall.transform.position + Vector3.up * (ballHigh/ 2), level.PowerUpAmount);
         
         OnSpeedUp_SaveZone();
-        DeleteTooCloseObstacles(ballSize);
+        DeleteTooCloseObstacles(ballSize + 0.5f);
 
         RemoveUnderFinish();
         AllingAllWalls();

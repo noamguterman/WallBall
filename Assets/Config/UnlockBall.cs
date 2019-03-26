@@ -22,8 +22,10 @@ public class UnlockBall : MonoBehaviour
 
     public void Click()
     {
-        UnlockBallsData.Instance.Open(index);
-        UnlockBallsData.Instance.currentBall = index;
-        OnEnable();
+        bool isOpen = UnlockBallsData.Instance.openedVideo[index];
+        {
+            UnlockBallsData.Instance.currentBall = index;
+            
+        }
     }
 }

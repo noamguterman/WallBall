@@ -37,8 +37,8 @@ public class MainBall : MonoBehaviour
 
     public void StartSmaller()
     {
-        transform.localScale = Vector3.one * 0.7f;
-        _trail.startWidth = transform.localScale.x * 0.6f;
+        transform.localScale = Vector3.one * 0.5f;
+        _trail.startWidth = transform.localScale.x * 0.4f;
     }
 
     private IEnumerator Start()
@@ -97,8 +97,6 @@ public class MainBall : MonoBehaviour
     {
         _trail.startColor = c;
         _trail.endColor = c;
-        if (UnlockBallsData.Instance.currentBall == 0)
-            Img.GetComponent<SpriteRenderer>().color = c;
     }
 
     private void Increase()

@@ -13,13 +13,20 @@ public class SpawnWallBalls : MonoBehaviour
     private SpriteRenderer _renderer;
 
     public Transform Parent;
-    private Color _randColor;
+    private RandomColors _randColor;
 
     private Rigidbody2D _rig;
 
+    public AllRandomColors Colors;
+
     private void Awake()
     {
-        _randColor =  Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        if (Colors.List.Count == 0)
+        {
+            Colors.List.Add(new RandomColors(Color.white, Color.red));
+        }
+
+        _randColor = Colors.List[Random.Range(0, Colors.List.Count)];
     }
 
     IEnumerator Start()
@@ -30,10 +37,10 @@ public class SpawnWallBalls : MonoBehaviour
         //while (true)
         {
             _renderer.DOKill(true);
-            _renderer.DOColor(Color.red, Delay / 2);
+            _renderer.DOColor(_randColor.end, Delay / 2);
             yield return new WaitForSeconds(Delay / 2 + Random.Range(0f, 0.2f));
             _renderer.DOKill(true);
-            _renderer.DOColor(Color.white, Delay / 2);
+            _renderer.DOColor(_randColor.start, Delay / 2);
             Spawn();
             yield return new WaitForSeconds(Delay / 2 + Random.Range(0f, 0.2f));
         }
@@ -45,7 +52,7 @@ public class SpawnWallBalls : MonoBehaviour
         var c = GetComponentsInChildren<SpriteRenderer>();
         foreach (var a in c)
         {
-            a.color = _randColor;
+            a.color = _randColor.start;
         }
 
         if (Size > 2f)
@@ -53,9 +60,9 @@ public class SpawnWallBalls : MonoBehaviour
             Size = 2f;
         }
 
-        if (Size < 0.8f)
+        if (Size < 1f)
         {
-            Size = 0.8f;
+            Size = 1f;
         }
 
         var t = transform.Find("Sprites");
@@ -87,9 +94,30 @@ public class SpawnWallBalls : MonoBehaviour
 
         _rig = g.GetComponent<Rigidbody2D>();
         _rig.AddForce(Vector2.right * Direction * SpeedBullet);
-        g.GetComponent<SpriteRenderer>().color = _randColor;
+        g.GetComponent<SpriteRenderer>().color = _randColor.start;
+        var d = g.GetComponent<DeadTrigger>();
+        d.endColor = _randColor.end;
         //g.transform.DOMoveX(g.transform.position.x + Direction, SpeedBullet);
         //Destroy(g, 10f);
+    }
+    
+    [CreateAssetMenu(fileName = "RingColors", menuName = "Settings/RingColors", order = 1)]
+    public class AllRandomColors: ScriptableObject
+    {
+        public List<RandomColors> List;
+    }
+    
+    [System.Serializable]
+    public class RandomColors
+    {
+        public Color start;
+        public Color end;
+
+        public RandomColors(Color start, Color end)
+        {
+            this.start = start;
+            this.end = end;
+        }
     }
 
 }
