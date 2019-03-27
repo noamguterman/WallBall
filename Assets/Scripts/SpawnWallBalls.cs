@@ -23,7 +23,7 @@ public class SpawnWallBalls : MonoBehaviour
     {
         //if (Colors == null)
         {
-            Colors = Resources.Load<AllRandomColors>("RingColors");
+            //Colors = Resources.Load<AllRandomColors>("RingColors");
         }
         if (Colors.List.Count == 0)
         {
@@ -105,23 +105,5 @@ public class SpawnWallBalls : MonoBehaviour
         //Destroy(g, 10f);
     }
     
-    [CreateAssetMenu(fileName = "RingColors", menuName = "Settings/RingColors", order = 1)]
-    public class AllRandomColors: ScriptableObject
-    {
-        public List<RandomColors> List;
-    }
-    
-    [System.Serializable]
-    public class RandomColors
-    {
-        public Color start;
-        public Color end;
-
-        public RandomColors(Color start, Color end)
-        {
-            this.start = start;
-            this.end = end;
-        }
-    }
 
 }
