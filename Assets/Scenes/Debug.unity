@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 24248752}
   - component: {fileID: 24248751}
   - component: {fileID: 24248750}
+  - component: {fileID: 24248753}
   m_Layer: 5
   m_Name: Button (6)
   m_TagString: Untagged
@@ -231,6 +232,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24248748}
   m_CullTransparentMesh: 0
+--- !u!111 &24248753
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24248748}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 041427e045194a44c8ad5c71d9ad3f52, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 041427e045194a44c8ad5c71d9ad3f52, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &77705088
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +709,8 @@ GameObject:
   - component: {fileID: 631148408}
   - component: {fileID: 631148407}
   - component: {fileID: 631148411}
+  - component: {fileID: 631148413}
+  - component: {fileID: 631148412}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -799,6 +818,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3487950281a9da54eac28a11dcb4a0bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &631148412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631148406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 41841680fa19c084e9b02b691e1a8589, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &631148413
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631148406}
+  m_CullTransparentMesh: 0
 --- !u!1 &644478414
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +964,7 @@ GameObject:
   - component: {fileID: 726352396}
   - component: {fileID: 726352395}
   - component: {fileID: 726352394}
+  - component: {fileID: 726352397}
   m_Layer: 5
   m_Name: Button (5)
   m_TagString: Untagged
@@ -1026,6 +1083,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726352392}
   m_CullTransparentMesh: 0
+--- !u!111 &726352397
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726352392}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: eab81975d699c0340b8e2bc98bdad677, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: eab81975d699c0340b8e2bc98bdad677, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &876967723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1941,7 @@ GameObject:
   - component: {fileID: 1847552192}
   - component: {fileID: 1847552191}
   - component: {fileID: 1847552190}
+  - component: {fileID: 1847552193}
   m_Layer: 5
   m_Name: Button (7)
   m_TagString: Untagged
@@ -1985,6 +2059,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847552188}
   m_CullTransparentMesh: 0
+--- !u!111 &1847552193
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847552188}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c7d12dee67ec45c40b7ebcfb2a25cd3d, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: c7d12dee67ec45c40b7ebcfb2a25cd3d, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1929668701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,7 +2222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1984214495
 RectTransform:
   m_ObjectHideFlags: 0

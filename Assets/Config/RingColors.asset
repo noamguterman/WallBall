@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: RingColors
   m_EditorClassIdentifier: Assembly-CSharp::SpawnWallBalls/AllRandomColors
   List:
-  - start: {r: 1, g: 1, b: 1, a: 1}
-    end: {r: 1, g: 0, b: 0, a: 1}
+  - start: {r: 0.9245283, g: 0.25729796, b: 0.25729796, a: 1}
+    end: {r: 1, g: 0.4669811, b: 0.4669811, a: 1}
+  - start: {r: 0.10902455, g: 0.46081054, b: 0.9245283, a: 1}
+    end: {r: 0.48584908, g: 0.5785979, b: 1, a: 1}
+  - start: {r: 0.34349412, g: 0.8773585, b: 0.38925993, a: 1}
+    end: {r: 0.5330188, g: 1, b: 0.55424523, a: 1}
+  - start: {r: 0.9339623, g: 0.8949741, b: 0.2863564, a: 1}
+    end: {r: 1, g: 0.97142065, b: 0.514151, a: 1}
