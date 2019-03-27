@@ -21,6 +21,10 @@ public class SpawnWallBalls : MonoBehaviour
 
     private void Awake()
     {
+        //if (Colors == null)
+        {
+            Colors = Resources.Load<AllRandomColors>("RingColors");
+        }
         if (Colors.List.Count == 0)
         {
             Colors.List.Add(new RandomColors(Color.white, Color.red));

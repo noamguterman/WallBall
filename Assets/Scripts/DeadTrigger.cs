@@ -18,9 +18,7 @@ public class DeadTrigger : MonoBehaviour
         yield return null;
         _startScale = transform.localScale;
         transform.DOScale(_startScale * 1.2f, 0.5f).SetLoops(-1, LoopType.Yoyo);
-        var start = _renderer.color;
-        var rand = Color.Lerp(start, endColor, Random.Range(0, 0.5f));
-        _renderer.DOColor(rand, 0.5f).SetLoops(-1, LoopType.Yoyo);
+        _renderer.DOColor(endColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void OnDestroy()

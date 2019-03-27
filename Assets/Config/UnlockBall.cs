@@ -17,6 +17,7 @@ public class UnlockBall : MonoBehaviour
         {
             renderer.sprite = data._list[index];
             renderer.color = Color.white;
+            transform.Find("Image").gameObject.SetActive(false);
         }
     }
 
@@ -24,8 +25,10 @@ public class UnlockBall : MonoBehaviour
     {
         bool isOpen = UnlockBallsData.Instance.openedVideo[index];
         {
+            renderer.sprite = data._list[index];
+            renderer.color = Color.white;
             UnlockBallsData.Instance.currentBall = index;
-            
+            transform.Find("Image").gameObject.SetActive(false);
         }
     }
 }

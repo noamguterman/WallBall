@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33d6c21f35e5ba478f2861b3cf0a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountPlayed: 1
+  AmountPlayed: 0
 --- !u!1 &727986159
 GameObject:
   m_ObjectHideFlags: 0
@@ -5722,6 +5722,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 462726773, guid: 63df7e19fc74ab840b143c4f03156a68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 219018286, guid: 63df7e19fc74ab840b143c4f03156a68, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.1
@@ -5737,10 +5741,6 @@ PrefabInstance:
     - target: {fileID: 219018286, guid: 63df7e19fc74ab840b143c4f03156a68, type: 3}
       propertyPath: m_SizeDelta.y
       value: 2141.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 462726773, guid: 63df7e19fc74ab840b143c4f03156a68, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63df7e19fc74ab840b143c4f03156a68, type: 3}
