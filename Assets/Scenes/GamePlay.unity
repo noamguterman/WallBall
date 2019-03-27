@@ -817,6 +817,21 @@ PrefabInstance:
       propertyPath: m_SpriteTileMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7860188696751267980, guid: 4cde657bd3dd9074b827771a65a46913,
+        type: 3}
+      propertyPath: Colors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860188696751267980, guid: 4cde657bd3dd9074b827771a65a46913,
+        type: 3}
+      propertyPath: Colors.Array.data[0].g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860188696751267980, guid: 4cde657bd3dd9074b827771a65a46913,
+        type: 3}
+      propertyPath: Colors.Array.data[0].b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cde657bd3dd9074b827771a65a46913, type: 3}
 --- !u!4 &137689886 stripped
