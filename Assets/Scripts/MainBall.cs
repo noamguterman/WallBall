@@ -29,7 +29,8 @@ public class MainBall : MonoBehaviour
         _rig = GetComponent<Rigidbody2D>();
         startGravity = _rig.gravityScale;
         _rig.gravityScale = 0;
-        transform.localScale = Vector3.one * Random.Range(1f, 2f);
+//        transform.localScale = Vector3.one * Random.Range(1f, 2f);
+        transform.localScale = Vector3.one;
         //Img.DOScale(new Vector3(0.7f, 1.5f, 1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
         _trail = GetComponentInChildren<TrailRenderer>();
         _trail.gameObject.SetActive(false);
@@ -38,7 +39,7 @@ public class MainBall : MonoBehaviour
     public void StartSmaller()
     {
         transform.localScale = Vector3.one * 0.5f;
-        _trail.startWidth = transform.localScale.x * 0.4f;
+        _trail.startWidth = transform.localScale.x * 0.7f;
     }
 
     private IEnumerator Start()
@@ -80,6 +81,11 @@ public class MainBall : MonoBehaviour
             _canLose = true;
             _rig.gravityScale = startGravity;
             _rig.velocity = Vector2.zero;
+            if (FirstTap == false)
+            {
+                FirstTap = true;
+                return;
+            }
             _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
             Animation();
             Increase();
@@ -172,13 +178,15 @@ public class MainBall : MonoBehaviour
         CameraFollow.Shake();
     }
 
+    private bool FirstTap;
+    
     private void Animation()
-    {
+    {        
         Img.DOKill(true);
         Img.localScale = Vector3.one;
         var seq = DOTween.Sequence();
-        seq.Append(Img.DOScale(new Vector3(0.5f, 2f, 1f), 0.1f).SetLoops(2, LoopType.Yoyo));
-        seq.Append(Img.DOScale(new Vector3(2f, 0.5f, 1f), 0.1f).SetLoops(2, LoopType.Yoyo));
+        seq.Append(Img.DOScale(Sprites.BallSettings.FirstScale, Sprites.BallSettings.TransitionSpeed1).SetLoops(2, LoopType.Yoyo));
+        seq.Append(Img.DOScale(Sprites.BallSettings.SecondScale, Sprites.BallSettings.TransitionSpeed2).SetLoops(2, LoopType.Yoyo));
         seq.OnComplete(() => { Img.localScale = Vector3.one; });
     }
 
