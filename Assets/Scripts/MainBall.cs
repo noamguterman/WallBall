@@ -12,7 +12,7 @@ public class MainBall : MonoBehaviour
     public Transform Img;
     public Transform Particles;
     public GenerateLevel GenerateLevel;
-    private TrailRenderer _trail;
+    public TrailRenderer _trail;
     private float startGravity;
     public GamePlayHandler GamePlayHandler;
     public CameraFollow CameraFollow;
@@ -95,7 +95,7 @@ public class MainBall : MonoBehaviour
 
     private void UpdateColor()
     {
-        var c =  Color.Lerp(_startTrailColor, Color.red, _rig.velocity.y / -20);
+        var c =  Color.Lerp(_startTrailColor, new Color(114f / 255f, 14f / 255f, 14f / 255f, 255f / 255f), _rig.velocity.y / -15);
         SetColor(c);
     }
 

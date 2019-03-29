@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df636a22f63ffc845a8b2335b75b9ec8, type: 3}
   m_Name: SpriteBallsSO
   m_EditorClassIdentifier: 
+  BallSettings:
+    FirstScale: {x: 0.5, y: 2, z: 1}
+    TransitionSpeed1: 0.1
+    SecondScale: {x: 2, y: 0.5, z: 1}
+    TransitionSpeed2: 0
   _list:
   - {fileID: 21300000, guid: 8e86d0daa46d5b44185a8168a14fe2f2, type: 3}
   - {fileID: 21300000, guid: 287a241036abc3341afdf50722dc8683, type: 3}
