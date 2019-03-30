@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class GamePlayHandler : MonoBehaviour
     private void Start()
     {
         GenerateLevel.Generate();
+        canRestart = true;
     }
 
     public void Hit()
@@ -39,7 +41,14 @@ public class GamePlayHandler : MonoBehaviour
         var end = GenerateLevel.GetStartPos();
         var start = GenerateLevel.GetEndPos();
         var place = Vector3.Lerp(start, end, 0.5f);
-        MainBall.transform.position = place;
+        MainBall._active = false;
+        MainBall._trail.gameObject.SetActive(true);
+        MainBall.transform.DOMove(place, 2f).OnComplete(() =>
+        {
+            MainBall._trail.time = 0f;
+            MainBall._active = true;
+            MainBall._trail.gameObject.SetActive(false);
+        });
     }
 
     public void StartSmaller()

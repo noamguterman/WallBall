@@ -53,7 +53,7 @@ public class MainBall : MonoBehaviour
         _lastPosition = transform.position;
     }
 
-    private bool _active = true;
+    public bool _active = true;
 
     void Update()
     {
@@ -149,7 +149,7 @@ public class MainBall : MonoBehaviour
 
     private bool _canLose = false;
 
-    public void TouchObstacle()
+    public void TouchObstacle(Color start, Color end)
     {
         if (_canLose == false)
             return;
@@ -159,7 +159,7 @@ public class MainBall : MonoBehaviour
             _rig.gravityScale = 0;
             _rig.velocity = Vector3.zero;
             _active = false;
-            Hit();
+            Hit(start, end);
             StopAllCoroutines();
             StartCoroutine(Hit_Delay());
         }
@@ -176,11 +176,21 @@ public class MainBall : MonoBehaviour
         GamePlayHandler.Hit();
     }
 
-    private void Hit()
+    private void Hit(Color start, Color end)
     {
         Img.gameObject.SetActive(false);
         _trail.gameObject.SetActive(false);
         Particles.gameObject.SetActive(true);
+        var part = Particles.GetComponent<ParticleSystem>();
+
+        var col = part.colorOverLifetime;
+        col.enabled = true;
+
+        Gradient grad = new Gradient();
+        grad.SetKeys( new GradientColorKey[] { new GradientColorKey(start, 0.0f), new GradientColorKey(end, 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) } );
+
+        col.color = grad;
+        
         CameraFollow.Shake();
     }
 
@@ -202,14 +212,22 @@ public class MainBall : MonoBehaviour
         if (Time.timeScale < 0.1f)
             return false;
 
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject(0))
             return false;
         
-        return Input.GetMouseButtonDown(0)
-#if UNITY_EDITOR
-               || Input.GetKeyDown(KeyCode.Space)
-#endif
-            ;
+        if (Input.mousePosition.y > (float) Screen.height / 2)
+        {
+            return false;
+        }
+        
+        if (FirstTap == false)
+        {
+            return Input.GetMouseButtonUp(0);
+        }
+        else
+        {
+            return Input.GetMouseButtonDown(0);
+        }
     }
 
     public void Finish()
@@ -235,7 +253,8 @@ public class MainBall : MonoBehaviour
         {
             transform.localScale = Vector3.one;
         }
-            
+
+        FirstTap = false;
         _active = true;
         Particles.gameObject.SetActive(false);
         Img.gameObject.SetActive(true);

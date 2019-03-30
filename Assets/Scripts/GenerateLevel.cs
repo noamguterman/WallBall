@@ -32,7 +32,7 @@ public class GenerateLevel : MonoBehaviour
     public void Generate()
     {
         DOTween.SetTweensCapacity(500, 50);
-        if (Storage.AmountPlayed < 10)
+        if (Storage.AmountPlayed < 5)
         {
             float time = Storage.AmountPlayed;
             var ballHigh = AllSettings.StartPosition.Evaluate(time);

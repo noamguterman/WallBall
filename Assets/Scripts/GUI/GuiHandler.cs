@@ -117,7 +117,7 @@ public class GuiHandler : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject(0))
             return;
         
         if (Input.GetMouseButtonUp(0))
