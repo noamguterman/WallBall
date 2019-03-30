@@ -21,6 +21,8 @@ public class MainBall : MonoBehaviour
 
     public SpriteRenderer MainBallRenderer;
     public SpriteBallsSO Sprites;
+
+    public SoundManager soundManager;
     
     
     private void Awake()
@@ -49,7 +51,6 @@ public class MainBall : MonoBehaviour
         yield return null;
         _trail.gameObject.SetActive(true);
         _lastPosition = transform.position;
-
     }
 
     private bool _active = true;
@@ -162,6 +163,11 @@ public class MainBall : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(Hit_Delay());
         }
+
+        if (_canLose == true)
+        {
+            soundManager.gameOverSFX.Play();
+        }
     }
 
     private IEnumerator Hit_Delay()
@@ -188,6 +194,7 @@ public class MainBall : MonoBehaviour
         seq.Append(Img.DOScale(Sprites.BallSettings.FirstScale, Sprites.BallSettings.TransitionSpeed1).SetLoops(2, LoopType.Yoyo));
         seq.Append(Img.DOScale(Sprites.BallSettings.SecondScale, Sprites.BallSettings.TransitionSpeed2).SetLoops(2, LoopType.Yoyo));
         seq.OnComplete(() => { Img.localScale = Vector3.one; });
+        soundManager.jumpSFX.Play();
     }
 
     private bool IsTouch()
@@ -212,6 +219,7 @@ public class MainBall : MonoBehaviour
         _rig.velocity = Vector3.zero;
         _active = false;
         Img.gameObject.SetActive(false);
+        soundManager.victorySFX.Play();
     }
 
     private void OnDisable()
@@ -240,6 +248,4 @@ public class MainBall : MonoBehaviour
         _canLose = false;
         Time.timeScale = 1;
     }
-    
-    
 }

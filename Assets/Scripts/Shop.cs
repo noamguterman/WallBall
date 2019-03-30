@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public void Back()
     {
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
 }

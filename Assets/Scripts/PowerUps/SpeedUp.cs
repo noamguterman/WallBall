@@ -6,10 +6,12 @@ using UnityEngine;
 public class SpeedUp : MonoBehaviour
 {
     public float MoveDown = 5f;
+    public SoundManager soundManager;
 
     private void Start()
     {
         transform.DOMoveX(transform.position.x + 10f, 4f).SetLoops(-1, LoopType.Yoyo);
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -18,8 +20,8 @@ public class SpeedUp : MonoBehaviour
         if (ball != null)
         {
             ball.MoveDown(MoveDown);
+            soundManager.PlayPowerupSound();
             gameObject.SetActive(false);
         }
-
     }
 }

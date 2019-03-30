@@ -36,7 +36,9 @@ public class GuiHandler : MonoBehaviour
     public GameObject ParentToShowOpenBall;
     public Image OpenedBall;
     public SpriteBallsSO SpriteBallsSo;
-    
+
+    public SoundManager soundManager;
+
     private void Awake()
     {
         Progress.fillAmount = 0f;
@@ -85,6 +87,7 @@ public class GuiHandler : MonoBehaviour
         }
         else
         {
+            soundManager.buttonSFX.Play();
             SceneManager.LoadScene(0);
         }
     }
@@ -92,6 +95,7 @@ public class GuiHandler : MonoBehaviour
     public void EquipLastOpen()
     {
         UnlockBallsData.Instance.currentBall = _lastOpen;
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
 
@@ -100,11 +104,13 @@ public class GuiHandler : MonoBehaviour
         UnlockBallsData.Instance.OpenRandom();
         UnlockBallsData.Instance.OpenRandom();
         UnlockBallsData.Instance.OpenRandom();
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
 
     public void OKAY()
     {
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
     
@@ -201,11 +207,13 @@ public class GuiHandler : MonoBehaviour
 
     public void LoadShop()
     {
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(2);
     }
 
     public void LoadSelectLevel()
     {
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(1);
     }
 }

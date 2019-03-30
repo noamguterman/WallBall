@@ -8,6 +8,8 @@ public class Settings : MonoBehaviour
 
     public UnityEngine.UI.Image Level;
     public UnityEngine.UI.Image Endless;
+
+    public SoundManager soundManager;
     
     //0 is Level
     //1 is Endless
@@ -27,17 +29,20 @@ public class Settings : MonoBehaviour
     public void SetLevelType()
     {
         GameType = 0;
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
 
     public void SetEndless()
     {
         GameType = 1;
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
 
     public void Back()
     {
+        soundManager.buttonSFX.Play();
         SceneManager.LoadScene(0);
     }
     
