@@ -79,19 +79,24 @@ public class MainBall : MonoBehaviour
         }
         if (IsTouch())
         {
-            _canLose = true;
-            _rig.gravityScale = startGravity;
-            _rig.velocity = Vector2.zero;
-            if (FirstTap == false)
-            {
-                FirstTap = true;
-                return;
-            }
-            _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
-            Animation();
-            Increase();
+            Jump();
         }
 
+    }
+
+    public void Jump()
+    {
+        _canLose = true;
+        _rig.gravityScale = startGravity;
+        _rig.velocity = Vector2.zero;
+        if (FirstTap == false)
+        {
+            FirstTap = true;
+            return;
+        }
+        _rig.AddForce(Vector2.up * PowerForMoveUp, ForceMode2D.Impulse);
+        Animation();
+        Increase();
     }
 
     private void UpdateColor()
@@ -215,11 +220,6 @@ public class MainBall : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject(0))
             return false;
         
-        if (Input.mousePosition.y > (float) Screen.height / 2)
-        {
-            return false;
-        }
-        
         if (FirstTap == false)
         {
             return Input.GetMouseButtonUp(0);
@@ -254,7 +254,6 @@ public class MainBall : MonoBehaviour
             transform.localScale = Vector3.one;
         }
 
-        FirstTap = false;
         _active = true;
         Particles.gameObject.SetActive(false);
         Img.gameObject.SetActive(true);
@@ -266,5 +265,11 @@ public class MainBall : MonoBehaviour
         _rig.gravityScale = 0;
         _canLose = false;
         Time.timeScale = 1;
+        Invoke("SetFirstTapFalse", 0.1f);
+    }
+
+    void SetFirstTapFalse()
+    {
+        FirstTap = false;
     }
 }

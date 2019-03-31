@@ -37,24 +37,24 @@ public class GuiHandler : MonoBehaviour
     public Image OpenedBall;
     public SpriteBallsSO SpriteBallsSo;
 
+    public GameObject Tap2;
+    
     public SoundManager soundManager;
+
+    public static GuiHandler Instance;
 
     private void Awake()
     {
+        Instance = this;
         Progress.fillAmount = 0f;
         ProgressTxt.text = "0%";
         TotalGames++;
         Time.timeScale = 1;
         TapTxt.SetActive(Storage.AmountPlayed < 4);
 
-        if (PointCalculation.TotalPoints > 0.1f)
-        {
-            Crown.SetActive(false);
-        }
-
         if (Settings.GameType == 1)
         {
-            Crown.SetActive(false);
+            //Crown.SetActive(false);
             //Completed.gameObject.SetActive(false);
             foreach (var o in P)
             {
@@ -125,13 +125,22 @@ public class GuiHandler : MonoBehaviour
 
             Buttom.gameObject.SetActive(false);
         }
-        
-        
-        if (PointCalculation.TotalPoints > 0.1f)
-        {
-            Crown.SetActive(false);
-        }
 
+        if (Settings.GameType == 0)
+        {
+
+            if (PointCalculation.TotalPoints > 0.1f)
+            {
+                Crown.SetActive(false);
+            }
+        }
+        else
+        {
+            if (PointCalculation.TotalPointsEndless > 0.1f)
+            {
+                Crown.SetActive(false);
+            }
+        }
     }
 
     public void WatchVideo()

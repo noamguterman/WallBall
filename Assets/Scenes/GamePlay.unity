@@ -350,8 +350,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.019591853
-      value: 0.18432808
+      time: -0.06713824
+      value: 9.764803
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -570,6 +570,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 8841461360287044036, guid: 4cde657bd3dd9074b827771a65a46913,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8841461360287044037, guid: 4cde657bd3dd9074b827771a65a46913,
         type: 3}
@@ -1132,7 +1137,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -1274,7 +1279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33d6c21f35e5ba478f2861b3cf0a80a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountPlayed: 11
+  AmountPlayed: 6
 --- !u!1 &727986159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1456,7 @@ PrefabInstance:
     - target: {fileID: 8841461360287044036, guid: 4cde657bd3dd9074b827771a65a46913,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8841461360287044037, guid: 4cde657bd3dd9074b827771a65a46913,
         type: 3}
@@ -1558,6 +1563,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8841461360287044038, guid: 4cde657bd3dd9074b827771a65a46913,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 172d289388d91f144b3a59173b32729f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cde657bd3dd9074b827771a65a46913, type: 3}
 --- !u!4 &773478918 stripped
@@ -8066,7 +8077,7 @@ PrefabInstance:
     - target: {fileID: 8841461360287044036, guid: 4cde657bd3dd9074b827771a65a46913,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8841461360287044037, guid: 4cde657bd3dd9074b827771a65a46913,
         type: 3}
@@ -8173,6 +8184,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8841461360287044038, guid: 4cde657bd3dd9074b827771a65a46913,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d2041563d4b1a6148be157b23ac8f644,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cde657bd3dd9074b827771a65a46913, type: 3}
 --- !u!4 &1975270931 stripped
@@ -8570,6 +8587,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 614954967093327400, guid: 95a0d9f5504ffa6499762f00b7a13c6f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 806124141322778444, guid: 95a0d9f5504ffa6499762f00b7a13c6f,
         type: 3}
       propertyPath: Storage
@@ -8692,11 +8714,6 @@ PrefabInstance:
     - target: {fileID: 1924662425100939191, guid: 95a0d9f5504ffa6499762f00b7a13c6f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 614954967093327400, guid: 95a0d9f5504ffa6499762f00b7a13c6f,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -8824,11 +8841,6 @@ PrefabInstance:
       propertyPath: soundManager
       value: 
       objectReference: {fileID: 1432680888}
-    - target: {fileID: 5747986338661828927, guid: 1ddd486fa6a809a46877143299020517,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.18
-      objectReference: {fileID: 0}
     - target: {fileID: 1393027142, guid: 1ddd486fa6a809a46877143299020517, type: 3}
       propertyPath: m_IsActive
       value: 0

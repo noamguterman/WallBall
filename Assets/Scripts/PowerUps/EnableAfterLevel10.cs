@@ -8,9 +8,16 @@ public class EnableAfterLevel10 : MonoBehaviour
     public Storage Storage;
     private void Start()
     {
-        if (Storage.AmountPlayed < 10)
+        if (Settings.GameType != 1)
         {
-            gameObject.SetActive(false);
+            if (Storage.AmountPlayed < 10)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            gameObject.SetActive(false);            
         }
     }
 }

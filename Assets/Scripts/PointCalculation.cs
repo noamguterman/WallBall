@@ -80,7 +80,7 @@ public class PointCalculation : MonoBehaviour
         {
             TotalPointsEndless += distance * 10f;
             GuiHandler.UpdatePoints(TotalPointsEndless);
-            var last = PlayerPrefs.GetFloat("TotalPointsEndless", TotalPointsEndless);
+            var last = PlayerPrefs.GetFloat("TotalPointsEndless", 0f);
             if (last < TotalPointsEndless)
             {
                 Debug.Log(TotalPointsEndless);

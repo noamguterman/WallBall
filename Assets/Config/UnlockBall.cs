@@ -10,6 +10,8 @@ public class UnlockBall : MonoBehaviour
     public SpriteBallsSO data;
     public Image renderer;
 
+    public bool IsCareer;
+
     private void OnEnable()
     {
         bool isOpen = UnlockBallsData.Instance.openedVideo[index];
@@ -23,12 +25,27 @@ public class UnlockBall : MonoBehaviour
 
     public void Click()
     {
-        bool isOpen = UnlockBallsData.Instance.openedVideo[index];
+        if (IsCareer == true)
         {
-            renderer.sprite = data._list[index];
-            renderer.color = Color.white;
-            UnlockBallsData.Instance.currentBall = index;
-            transform.Find("Image").gameObject.SetActive(false);
+            bool isOpen = UnlockBallsData.Instance.openedVideo[index];
+            if (isOpen)
+            {
+                renderer.sprite = data._list[index];
+                renderer.color = Color.white;
+                UnlockBallsData.Instance.currentBall = index;
+                transform.Find("Image").gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            //show ads
+            bool isOpen = UnlockBallsData.Instance.openedVideo[index];
+            {
+                renderer.sprite = data._list[index];
+                renderer.color = Color.white;
+                UnlockBallsData.Instance.currentBall = index;
+                transform.Find("Image").gameObject.SetActive(false);
+            }
         }
     }
 }

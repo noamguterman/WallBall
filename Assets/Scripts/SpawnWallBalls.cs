@@ -19,6 +19,8 @@ public class SpawnWallBalls : MonoBehaviour
 
     public AllRandomColors Colors;
 
+    public bool startOnTap;
+
     private void Awake()
     {
         //if (Colors == null)
@@ -45,7 +47,8 @@ public class SpawnWallBalls : MonoBehaviour
             yield return new WaitForSeconds(Delay / 2 + Random.Range(0f, 0.2f));
             _renderer.DOKill(true);
             _renderer.DOColor(_randColor.start, Delay / 2);
-            Spawn();
+            if (startOnTap == false)
+                Spawn();
             yield return new WaitForSeconds(Delay / 2 + Random.Range(0f, 0.2f));
         }
         
@@ -75,8 +78,17 @@ public class SpawnWallBalls : MonoBehaviour
         t.transform.localScale = new Vector3(Size * 0.7f, 1f, 1f);
     }
 
+    private bool _wasSpawn;
     private void Update()
     {
+        if (startOnTap && _wasSpawn == false)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                _wasSpawn = true;
+                Spawn();
+            }
+        }
         if (_rig == null)
             return;
         

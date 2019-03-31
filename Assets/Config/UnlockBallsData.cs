@@ -12,7 +12,7 @@ public class UnlockBallsData
         {
             if (_instance == null)
             {
-                var s = PlayerPrefs.GetString("UnlockBallsData", JsonUtility.ToJson(new UnlockBallsData()));
+                var s = PlayerPrefs.GetString("UnlockBallsData3", JsonUtility.ToJson(new UnlockBallsData()));
                 _instance = JsonUtility.FromJson<UnlockBallsData>(s);
                 _instance.openedVideo[0] = true;
             }
@@ -25,7 +25,7 @@ public class UnlockBallsData
     {
         openedVideo[index] = true;
         var json = JsonUtility.ToJson(_instance);
-        PlayerPrefs.SetString("UnlockBallsData", json);
+        PlayerPrefs.SetString("UnlockBallsData3", json);
         PlayerPrefs.Save();
     }
 
@@ -51,5 +51,5 @@ public class UnlockBallsData
     
     public int currentBall = 0;
     public static int amountForVideos = 16;
-    public bool[] openedVideo = new bool[48];
+    public bool[] openedVideo = new bool[52];
 }
