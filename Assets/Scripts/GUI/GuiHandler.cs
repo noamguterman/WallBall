@@ -158,13 +158,20 @@ public class GuiHandler : MonoBehaviour
         }
         else
         {
-            if (IsBallFar())
+            if (Settings.GameType == 1)
             {
                 VideoTry.SetActive(true);
             }
             else
             {
-                RestartLevel();
+                if (IsBallFar())
+                {
+                    VideoTry.SetActive(true);
+                }
+                else
+                {
+                    RestartLevel();
+                }
             }
         }
     }
