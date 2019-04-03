@@ -8217,7 +8217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 534669905}
-  ParalaxPower: 0.5
+  ParalaxPower: 0.3
 --- !u!1 &1992441349
 GameObject:
   m_ObjectHideFlags: 0
