@@ -18,7 +18,7 @@ public class EndLevel : MonoBehaviour
         if (Settings.GameType == 1)
         {
             Parent.SetActive(false);
-            transform.position += Vector3.up * 10f;
+            //transform.position += Vector3.up * 10f;
         }
     }
 
@@ -32,9 +32,9 @@ public class EndLevel : MonoBehaviour
             
             if (Settings.GameType == 1)
             {
-                CameraFollow.transform.position = GenerateLevel.GetStartPos();
-                MainBall.transform.position = GenerateLevel.GetStartPos();
-                return;
+             //   CameraFollow.transform.position = GenerateLevel.GetStartPos();
+             //   MainBall.transform.position = GenerateLevel.GetStartPos();
+             //   return;
             }
             
             ParticleSystem.gameObject.SetActive(true);

@@ -6,6 +6,38 @@ public class Storage : MonoBehaviour
 {
     public int AmountPlayed;
 
+    public static bool IsSfx
+    {
+        get { return PlayerPrefs.GetInt("sfx", 0) == 0; }
+        set
+        {
+            if (value)
+            {
+                PlayerPrefs.SetInt("sfx", 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("sfx", 1);
+            }
+        }
+    }
+    
+    public static bool IsMusic
+    {
+        get { return PlayerPrefs.GetInt("music", 0) == 0; }
+        set
+        {
+            if (value)
+            {
+                PlayerPrefs.SetInt("music", 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("music", 1);
+            }
+        }
+    }
+
     public const string Level = "Level";
     private void Awake()
     {

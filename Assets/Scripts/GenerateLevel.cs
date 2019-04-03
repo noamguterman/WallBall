@@ -34,16 +34,23 @@ public class GenerateLevel : MonoBehaviour
         DOTween.SetTweensCapacity(500, 50);
         if (Storage.AmountPlayed < 5)
         {
-            float time = Storage.AmountPlayed;
-            var ballHigh = AllSettings.StartPosition.Evaluate(time);
-            var p = Instantiate(levelsPrefab[Storage.AmountPlayed]);
-            var walls = p.GetComponentsInChildren<SpawnWallBalls>();
-            foreach (var wall in walls)
+            if (Settings.GameType == 1)
             {
-                wall.Size += Random.Range(0, 0.3f);
+                GenerateRandom();
             }
-            
-            MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
+            else
+            {
+                float time = Storage.AmountPlayed;
+                var ballHigh = AllSettings.StartPosition.Evaluate(time);
+                var p = Instantiate(levelsPrefab[Storage.AmountPlayed]);
+                var walls = p.GetComponentsInChildren<SpawnWallBalls>();
+                foreach (var wall in walls)
+                {
+                    wall.Size += Random.Range(0, 0.3f);
+                }
+
+                MainBall.transform.position = StartBall.transform.position + Vector3.up * (ballHigh) + Vector3.up * 10f;
+            }
         }
         else
         {
