@@ -7,14 +7,19 @@ public class BackMusic : MonoBehaviour
     public static BackMusic Instance;
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != this)
         {
-            DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
-        else
-        {
-            DestroyImmediate(gameObject);            
+            if (Instance == null)
+            {
+                GetComponent<AudioSource>().Play();
+                DontDestroyOnLoad(gameObject);
+                Instance = this;
+            }
+            else
+            {
+                GetComponent<AudioSource>().Stop();
+                Destroy(gameObject);
+            }
         }
     }
 }
